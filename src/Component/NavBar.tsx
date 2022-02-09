@@ -48,7 +48,7 @@ class NavBar extends React.Component<Props, any> {
     return (
       <div>
         <Navbar color="faded" light expand="md">
-          <NavbarBrand>Baker Helper</NavbarBrand>
+          <NavbarBrand>bitPicker</NavbarBrand>
           <NavbarToggler size="sm" />
           <Collapse navbar>
             <Nav className="ms-auto" navbar>
