@@ -11,11 +11,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div className="App">
-      <Header />
-      <NavBar
+      <Header /> 
+      {/* <NavBar // does not need to be on splash page
         clickLogout={() => {}}
         tokenUpdate={() => {}}
-      />
+      /> */}
       <Auth tokenUpdate={
         console.log("Hello")
       } />

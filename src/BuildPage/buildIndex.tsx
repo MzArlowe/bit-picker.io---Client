@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Container, Row, Col } from 'reactstrap';
-import APIURL from '../helpers/environments';
+import APIURL from '../Helpers/environments';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface Props {

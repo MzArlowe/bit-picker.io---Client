@@ -8,6 +8,8 @@ import {
   FormText,
   List,
 } from "reactstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 type Props = {
   update: any;
@@ -19,7 +21,8 @@ class Signup extends React.Component<Props, any> {
     this.state = {
       email: "",
       password: "",
-      role: "",
+      role: "user",
+      message: "",
     };
   }
   componentDidMount = () => { };
@@ -97,12 +100,15 @@ class Signup extends React.Component<Props, any> {
             />
           </FormGroup>
           <FormGroup floating>
+            <Button type="submit" disabled={!this.validPassword()}>
+              Sign Up
+            </Button>
             <FormText>
               <List className="password-list">
-                <li>Password Requirements:</li>
-                <li>At least 8 characters</li>
-                <li>A mixture of both uppercase and lowercase letters.</li>
-                <li>A mixture of letters and numbers.</li>
+                <ul>Password Requirements:</ul>
+                <ul>At least 8 characters</ul>
+                <ul>A mixture of both uppercase and lowercase letters.</ul>
+                <ul>A mixture of letters and numbers.</ul>
               </List>
             </FormText>
             <FormFeedback>
@@ -110,9 +116,6 @@ class Signup extends React.Component<Props, any> {
               {this.state.message !== "" ? <p>{this.state.message}</p> : ""}
             </FormFeedback>
           </FormGroup>{" "}
-          <Button type="submit" disabled={!this.validPassword()}>
-            Sign Up
-          </Button>
           <FormFeedback>
             {" "}
             {this.state.message !== "" ? (
