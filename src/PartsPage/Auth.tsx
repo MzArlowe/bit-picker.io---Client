@@ -1,6 +1,6 @@
 import React from "react";
-import Signup from "./Signup";
-import Login from "./Login";
+import Signup from "../Component/Signup";
+import Login from "../Component/Login";
 import { Container, Row, Col } from "reactstrap";
 
 type Props = {

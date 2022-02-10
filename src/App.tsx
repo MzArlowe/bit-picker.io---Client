@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import NavBar from './Component/NavBar';
-import Auth from './Pages/Auth';
-import LandingPage from './Pages/landingPage';
+import Auth from './PartsPage/Auth';
+import LandingPage from './PartsPage/createBit';
 import Header from './Component/Header';
 import Footer from './Component/Footer';
 
@@ -10,14 +10,14 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Auth tokenUpdate={
-        console.log("Hello")
-      } />
-      <LandingPage />
       <NavBar
         clickLogout={() => {}}
         tokenUpdate={() => {}}
       />
+      <Auth tokenUpdate={
+        console.log("Hello")
+      } />
+      <LandingPage />
       <Footer />
     </div>
   );

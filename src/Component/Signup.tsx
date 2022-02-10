@@ -27,7 +27,7 @@ class Signup extends React.Component<Props, any> {
   handleSubmit = () => {
     let errorCode: number | string;
     console.log(this.state.email, this.state.password);
-    fetch(`http://localhost:5001/users/signup`, {
+    fetch(`https://localhost:5001/users/signup`, {
       method: "POST",
       body: JSON.stringify({
         users: {
