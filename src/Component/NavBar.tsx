@@ -1,5 +1,7 @@
 import React from "react";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import {
   Navbar,
   NavbarBrand,
@@ -39,7 +41,7 @@ class NavBar extends React.Component<Props, any> {
     });
   };
 
-  componentDidMount = () => {};
+  componentDidMount = () => { };
 
   render() {
     if (this.state.hasError) {

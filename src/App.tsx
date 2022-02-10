@@ -6,6 +6,8 @@ import LandingPage from './PartsPage/createBit';
 import Header from './Component/Header';
 import Footer from './Component/Footer';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   return (
     <div className="App">
