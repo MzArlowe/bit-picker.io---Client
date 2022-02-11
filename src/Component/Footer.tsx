@@ -7,7 +7,7 @@ const Footer = () => {
     <Navbar fixed="bottom" expand="md">
       <Collapse navbar>
       <Row >
-        <p className="footer">&copy; 2022 bit-Picker.com &trade;</p>
+        <p className="footer1">&copy; 2022 bit-Picker.com &trade;</p>
       </Row>
       </Collapse>
     </Navbar>

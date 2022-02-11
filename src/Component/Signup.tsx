@@ -1,4 +1,5 @@
 import React from "react";
+import APIURL from "../Helpers/environments";
 import {
   Form,
   FormGroup,
@@ -30,7 +31,7 @@ class Signup extends React.Component<Props, any> {
   handleSubmit = () => {
     let errorCode: number | string;
     console.log(this.state.email, this.state.password);
-    fetch(`https://localhost:5001/users/signup`, {
+    fetch(`${APIURL}/users/signup`, {
       method: "POST",
       body: JSON.stringify({
         users: {
