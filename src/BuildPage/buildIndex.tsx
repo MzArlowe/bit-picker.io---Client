@@ -1,16 +1,13 @@
 import React from 'react';
+import CreateBuild from './';
 import { Button, Container, Row, Col } from 'reactstrap';
 import APIURL from '../Helpers/environments';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface Props {
+    token: string;
+    clickLogout: any;
     tokenUpdate: any;
-};
-
-interface State {
-    build: Build[];
-    hasError: boolean;
 };
 
 export interface Build {
@@ -21,13 +18,15 @@ export interface Build {
     totalPrice: number;
 }
 
-class BuildIndex extends React.Component<Props, State> {
+class BuildIndex extends React.Component<Props, any> {
 
     constructor(props: Props) {
         super(props);
         this.state = {
             build: [],
             hasError: false, // set to true if there is an error
+            updateActive: false,
+            editBuild: {},
         };
     }
 
@@ -36,11 +35,16 @@ class BuildIndex extends React.Component<Props, State> {
     }
 
     componentDidMount = () => {
+        this.fetchBuild();
+    }
+
+    fetchBuild = () => {
+        console.log("fetch Builds", this.props.token);
         fetch(`${APIURL}/build/`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.props.tokenUpdate}`
+                'Authorization': `${this.props.tokenUpdate}`
             })
         }).then((res) => res.json())
             .then((data) => {
@@ -48,8 +52,28 @@ class BuildIndex extends React.Component<Props, State> {
                 this.setState({
                     build: data
                 })
-            })
-    }
+            });
+    };
+
+    editUpdateBuild = (build: Build) => {
+        this.setState({
+            editBuild: build,
+        });
+        console.log(this.state.editBuild)
+    };
+
+    updateOn = () => {
+        this.setState({
+            updateActive: true,
+        });
+    };
+
+    updateOff = () => { //This is a 
+        this.setState({
+            updateActive: false,
+        });
+    };
+    
     render() {
         return (
             <Container>

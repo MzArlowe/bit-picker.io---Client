@@ -1,12 +1,5 @@
 import React from "react";
 import LoadingGif from "../Assets/loading.gif"
-// const Loading = () => {
-//     return (React.createElement("div", { className: "Loading" },
-//         React.createElement("header", { className: "Loading-header" },
-//             React.createElement("img", { src: "../../Assets/loading.gif", className: "Loading-logo", alt: "logo" }),
-//             React.createElement("div", { className: "loading" },
-//                 React.createElement("h1", null, "Loading")))));
-// };
 
 const Loading = () => {
     return (
@@ -17,11 +10,17 @@ const Loading = () => {
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
-                        alignItems: "center"
+                        alignItems: "center",
+                        backgroundColor: "white"
                     }
                 }>
                 <img src={LoadingGif} className="Loading-logo" alt="logo" />
+                    <div className="text-header" style={{
+                        fontSize: "1.5rem",
+                        color: "darkblue",
+                    }}>
                     <h1>Loading</h1>
+                    </div>
                 </div>
             </header>
         </div>
