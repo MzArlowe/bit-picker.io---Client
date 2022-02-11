@@ -3,12 +3,14 @@ import APIURL from "../Helpers/environments";
 import {
   Form,
   FormGroup,
+  Label,
   Input,
   Button,
   FormFeedback,
   FormText,
   List,
 } from "reactstrap";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -31,7 +33,7 @@ class Signup extends React.Component<Props, any> {
   handleSubmit = () => {
     let errorCode: number | string;
     console.log(this.state.email, this.state.password);
-    fetch(`${APIURL}/users/signup`, {
+    fetch(`${APIURL}/]Auth/Signup`, { // this is the url we are hitting and it's not hard coded
       method: "POST",
       body: JSON.stringify({
         users: {
@@ -62,7 +64,7 @@ class Signup extends React.Component<Props, any> {
         this.props.update(data.sessionToken);
       });
   };
-  validPassword = () => {
+  validPassword = () => { //validates password through form validation
     console.log("valid password");
     return (
       this.state.password.length > 8 &&
@@ -85,20 +87,23 @@ class Signup extends React.Component<Props, any> {
         >
           <FormGroup floating>
             <Input
-              type="text"
+              type="email"
               placeholder="Email"
               onChange={(e) => this.setState({ email: e.target.value })}
               value={this.state.email}
+              name="email"
             />
+            <Label for="exampleEmail">Email</Label>
           </FormGroup>{" "}
           <FormGroup floating>
             <Input
-              type="text"
+              type="password"
               placeholder="Password"
               onChange={(e) => this.setState({ password: e.target.value })}
               value={this.state.password}
               name="password"
             />
+            <Label for="examplePassword">Password</Label>
           </FormGroup>
           <FormGroup floating>
             <Button type="submit" disabled={!this.validPassword()}>
@@ -106,10 +111,10 @@ class Signup extends React.Component<Props, any> {
             </Button>
             <FormText>
               <List className="password-list">
-                <ul>Password Requirements:</ul>
-                <ul>At least 8 characters</ul>
-                <ul>A mixture of both uppercase and lowercase letters.</ul>
-                <ul>A mixture of letters and numbers.</ul>
+                <ul>Minimum of 8 characters and</ul>
+                <ul>must have at least 1 Number,</ul>
+                <ul>1 Letter, and/or 1 Symbol.</ul>
+                <br />
               </List>
             </FormText>
             <FormFeedback>

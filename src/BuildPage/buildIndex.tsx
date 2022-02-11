@@ -1,6 +1,7 @@
 import React from 'react';
-import CreateBuild from './';
-import { Button, Container, Row, Col } from 'reactstrap';
+import CreateBuild from '../BuildPage/createBuild';
+import UpdateBuild from '../BuildPage/updateBuild';
+import { Container, Row, Col } from 'reactstrap';
 import APIURL from '../Helpers/environments';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -73,25 +74,45 @@ class BuildIndex extends React.Component<Props, any> {
             updateActive: false,
         });
     };
-    
+
     render() {
+        console.log("ClientIndex render");
+        console.log(this.state);
         return (
-            <Container>
-                <Row>
-                    <Col md="6">
-                        <Button onClick={() => {}
-                        }>Build
-                        </Button>
-                    </Col>
-                    <Col md="6">
-                        <Button onClick={
-                            () => { }}>Parts
-                        </Button>
-                    </Col>
-                </Row>
-            </Container>
+            <div>
+                <Container>
+                    <Row>
+                        <Col md="3">
+                            <CreateBuild
+                                token={this.props.token}
+                                fetch={this.fetchBuild}
+                            />
+                        </Col>
+                        {/* <Col md="9">
+                  <ClientTable
+                    clientArray={this.state.build}
+                    fetch={this.fetchBuild}
+                    token={this.props.token}
+                    editUpdateBuild={this.editUpdateBuild}
+                    updateOn={this.updateOn}
+                  />
+                </Col> */}
+                        {this.state.updateActive ? (
+                            <UpdateBuild
+                                editBuild={this.state.editBuild}
+                                updateOff={this.updateOff}
+                                token={this.props.token}
+                                fetch={this.fetchBuild}
+                            />
+                        ) : (
+                            <></>
+                        )}
+                    </Row>
+                </Container>
+            </div>
         );
     }
 }
+
 
 export default BuildIndex;
