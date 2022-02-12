@@ -1,6 +1,6 @@
 import React from 'react';
-import CreateBuild from '../BuildPage/createBuild';
-import UpdateBuild from '../BuildPage/updateBuild';
+// import CreateBuild from './createBuild';
+// import UpdateBuild from './updateBuild';
 import { Container, Row, Col } from 'reactstrap';
 import APIURL from '../Helpers/environments';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -41,11 +41,11 @@ class BuildIndex extends React.Component<Props, any> {
 
     fetchBuild = () => {
         console.log("fetch Builds", this.props.token);
-        fetch(`${APIURL}/build/`, {
+        fetch(`${APIURL}/build`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': `${this.props.tokenUpdate}`
+                'Authorization': `${this.props.token}`
             })
         }).then((res) => res.json())
             .then((data) => {
@@ -83,21 +83,15 @@ class BuildIndex extends React.Component<Props, any> {
                 <Container>
                     <Row>
                         <Col md="3">
-                            <CreateBuild
+                            {/* <CreateBuild
                                 token={this.props.token}
                                 fetch={this.fetchBuild}
-                            />
+                            /> */}
                         </Col>
-                        {/* <Col md="9">
-                  <ClientTable
-                    clientArray={this.state.build}
-                    fetch={this.fetchBuild}
-                    token={this.props.token}
-                    editUpdateBuild={this.editUpdateBuild}
-                    updateOn={this.updateOn}
-                  />
-                </Col> */}
-                        {this.state.updateActive ? (
+                        <Col md="9">
+                  
+                </Col>
+                        {/* {this.state.updateActive ? (
                             <UpdateBuild
                                 editBuild={this.state.editBuild}
                                 updateOff={this.updateOff}
@@ -106,13 +100,12 @@ class BuildIndex extends React.Component<Props, any> {
                             />
                         ) : (
                             <></>
-                        )}
+                        )} */}
                     </Row>
                 </Container>
             </div>
         );
     }
 }
-
 
 export default BuildIndex;
