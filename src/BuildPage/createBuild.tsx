@@ -5,7 +5,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 type CreateBuildProps = {
     sessionToken: string;
-    fetch: () => void;
+    setBuildId: (buildId: string) => void;
+    createBuild: (createBuild: string) => void;
+    fetchBuild: (fetchBuild: string) => void;
 };
 
 type CreateBuildState = {
@@ -13,7 +15,7 @@ type CreateBuildState = {
     name: string;
     description: string;
     Complete: boolean;
-    totalPrice : any;
+    totalPrice: any;
 }
 
 class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
@@ -29,14 +31,14 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
     }
 
     handleSubmit = () => {
-        console.log("handleSubmit", 
-        this.state.name,
-        this.state.description,
-        this.state.Complete,
-        this.state.totalPrice,
+        console.log("handleSubmit",
+            this.state.name,
+            this.state.description,
+            this.state.Complete,
+            this.state.totalPrice,
         );
 
-        fetch(`${APIUR}/build`, {
+        fetch(`${APIUR}/user/build`, {
             method: "POST",
             body: JSON.stringify({
                 name: this.state.name,
@@ -52,19 +54,8 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
             .then((res) => res.json())
             .then((data) => {
                 console.log("data", data);
-                this.props.fetch();
+                this.props.setBuildId(data.id);   
             });
-            // .then((buildData) => { //BuildData is the data from the server
-            //     console.log("buildData", buildData);
-            //     this.setState({
-            //         id: buildData.id,
-            //         name: buildData.name,
-            //         description: buildData.description,
-            //         Complete: buildData.Complete,
-            //         totalPrice: buildData.totalPrice,
-            //     });
-            //     this.props.fetch();
-            //     });
     };
 
     componentDidMount() {
@@ -83,58 +74,62 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
         return (
             <div>
                 <h2>Build Info</h2>
-            <Form inline onSubmit={(e) => {e.preventDefault(); this.handleSubmit();}}>
-                <FormGroup>
-                    <Label for="name">Build Name</Label>
-                    <Input
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Build Name"
-                    onChange={(e) => {this.setState({name: e.target.value,});
-                }}
-                    > {" "}
-                    </Input>
-                </FormGroup>
-                <FormGroup>
-                    <Label for="description">Description</Label>
-                    <Input
-                    type="text"
-                    name="description"
-                    id="description"
-                    placeholder="Description"
-                    onChange={(e) => {this.setState({description: e.target.value,});
-                }}
-                    > {" "}
-                    </Input>
-                </FormGroup>
-                <FormGroup>
-                    <Label for="Complete">Complete?</Label>
-                    <Input
-                    type="checkbox"
-                    name="Complete"
-                    id="Complete"
-                    placeholder="Complete"
-                    checked={this.state.Complete}
-                    onChange={(e) => {this.setState({Complete: !this.state.Complete,});
-                }}
-                    > {" "}
-                    </Input>
-                </FormGroup>
-                <FormGroup>
-                    <Label for="totalPrice">Total Price</Label>
-                    <Input
-                    type="text"
-                    name="totalPrice"
-                    id="totalPrice"
-                    placeholder="Total Price"
-                    onChange={(e) => {this.setState({totalPrice: e.target.value,});
-                }}
-                    > {" "}
-                    </Input>
-                </FormGroup>
-                <Button>Submit</Button>
-            </Form>
+                <Form inline onSubmit={(e) => { e.preventDefault(); this.handleSubmit(); }}>
+                    <FormGroup>
+                        <Label for="name">Build Name</Label>
+                        <Input
+                            type="text"
+                            name="name"
+                            id="name"
+                            placeholder="Build Name"
+                            onChange={(e) => {
+                                this.setState({ name: e.target.value, });
+                            }}
+                        > {" "}
+                        </Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="description">Description</Label>
+                        <Input
+                            type="text"
+                            name="description"
+                            id="description"
+                            placeholder="Description"
+                            onChange={(e) => {
+                                this.setState({ description: e.target.value, });
+                            }}
+                        > {" "}
+                        </Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="Complete">Complete?</Label>
+                        <Input
+                            type="checkbox"
+                            name="Complete"
+                            id="Complete"
+                            placeholder="Complete"
+                            checked={this.state.Complete}
+                            onChange={(e) => {
+                                this.setState({ Complete: !this.state.Complete, });
+                            }}
+                        > {" "}
+                        </Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="totalPrice">Total Price</Label>
+                        <Input
+                            type="text"
+                            name="totalPrice"
+                            id="totalPrice"
+                            placeholder="Total Price"
+                            onChange={(e) => {
+                                this.setState({ totalPrice: e.target.value, });
+                            }}
+                        > {" "}
+                        </Input>
+                    </FormGroup>
+                    <Button>Submit</Button>
+                </Form>
             </div>
         );
     }

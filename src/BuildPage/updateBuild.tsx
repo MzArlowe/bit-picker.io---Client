@@ -50,10 +50,15 @@ class BuildUpdate extends React.Component<Props, any> {
                 console.log("data", data);
                 this.props.fetch();
             });
-            // .then((buildData) => { //BuildData is the data from the server
-            //     console.log("buildData", buildData);
-            //     this.setState({
-            //         id: buildData.id,
+        this.props.updateOff();
+
+        this.setState({
+            id: 0,
+            name: "",
+            description: "",
+            Complete: false,
+            totalPrice: 0,
+        });
     };
 
     handleChange = (event: any) => {
@@ -67,7 +72,7 @@ class BuildUpdate extends React.Component<Props, any> {
             <Modal isOpen={true}>
                 <ModalHeader>Update Build</ModalHeader>
                 <ModalBody>
-                    <Form inline onSubmit={(e) => {e.preventDefault(); this.handleSubmit(e);}}>
+                    <Form inline onSubmit={(e) => { e.preventDefault(); this.handleSubmit(e); }}>
                         <FormGroup>
                             <Label for="name">Name</Label>
                             <Input
@@ -75,7 +80,7 @@ class BuildUpdate extends React.Component<Props, any> {
                                 name="name"
                                 id="name"
                                 placeholder="Name"
-                                onChange={(e) => {this.setState({name: e.target.value,});}}
+                                onChange={(e) => { this.setState({ name: e.target.value, }); }}
                             />
                         </FormGroup>
                         <FormGroup>
@@ -85,7 +90,7 @@ class BuildUpdate extends React.Component<Props, any> {
                                 name="description"
                                 id="description"
                                 placeholder="Description"
-                                onChange={(e) => {this.setState({description: e.target.value,});}}
+                                onChange={(e) => { this.setState({ description: e.target.value, }); }}
                             />
                         </FormGroup>
                         <FormGroup>
@@ -95,7 +100,7 @@ class BuildUpdate extends React.Component<Props, any> {
                                 name="Complete"
                                 id="Complete"
                                 placeholder="Complete"
-                                onChange={(e) => {this.setState({Complete: e.target.value,});}}
+                                onChange={(e) => { this.setState({ Complete: e.target.value, }); }}
                             />
                         </FormGroup>
                         <FormGroup>
@@ -105,7 +110,7 @@ class BuildUpdate extends React.Component<Props, any> {
                                 name="totalPrice"
                                 id="totalPrice"
                                 placeholder="Total Price"
-                                onChange={(e) => {this.setState({totalPrice: e.target.value,});}}
+                                onChange={(e) => { this.setState({ totalPrice: e.target.value, }); }}
                             />
                         </FormGroup>
                         <Button type="submit">Submit</Button>

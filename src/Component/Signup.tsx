@@ -74,42 +74,10 @@ class Signup extends React.Component<SignupProps, SignupState> {
     } catch (error) {
       console.log(error);
     }
-
-    // fetch(`${APIURL}/user/register`, { // this is the url we are hitting and it's not hard coded
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     users: {
-    //       email: this.state.email,
-    //       password: this.state.password,
-    //       role: this.state.role,
-    //     },
-    //   }),
-    //   headers: new Headers({
-    //     "Content-Type": "application/json",
-    //     // "Accept": "*",
-    //   }),
-    // })
-    //   .then((response) => {
-    //     console.log(`fetch successful ${response}`);
-    //     errorCode = response.status;
-    //     console.log(errorCode);
-    //     if (errorCode === 409) {
-    //       this.setState({ message: "Email already in use" });
-    //       console.log(this.state.message);
-    //     } else if (errorCode === 500) {
-    //       this.setState({ message: "User failed to register" });
-    //       console.log(this.state.message);
-    //     }
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     console.log(data);
-    //     this.props.update(data.sessionToken);
-    //   });
   };
 
 
-  validPassword = () => { //validates password through form validation
+  validPassword = () => { //validates password through form validation: Currently not working
     console.log("valid password");
     return (
       this.state.password.length > 8 &&

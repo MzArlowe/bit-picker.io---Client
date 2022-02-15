@@ -6,6 +6,12 @@ import {
   Navbar,
   NavbarBrand,
   Nav,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  NavbarText,
   NavItem,
   Button,
   NavbarToggler,
@@ -49,26 +55,78 @@ class NavBar extends React.Component<NavProps, any> {
     }
     return (
       <div>
-        <Navbar color="faded" light expand="md">
-          <NavbarBrand>bitPicker</NavbarBrand>
-          <NavbarToggler size="sm" />
+        <Navbar
+          color="light"
+          expand="md"
+          light
+        >
+          <NavbarBrand href="/">
+            BIT-PICKER
+          </NavbarBrand>
+          <NavbarToggler onClick={function noRefCheck() { }} />
           <Collapse navbar>
-            <Nav className="ms-auto" navbar>
+            <Nav
+              className="me-auto"
+              navbar
+            >
               <NavItem>
-                <Link to="/">Home</Link>
-                
+                <NavLink href="/">Home</NavLink>
               </NavItem>
               <NavItem>
-                <Link to="/build">New Build</Link>
-               
+                <NavLink href="https://https://github.com/MzArlowe/bit-picker.io---Client">
+                  My GitHub
+                </NavLink>
               </NavItem>
-              <NavItem>
-              <Button onClick={this.props.clearToken}>Logout</Button>
-              </NavItem>
+              <UncontrolledDropdown
+                inNavbar
+                nav
+              >
+                <DropdownToggle
+                  caret
+                  nav
+                >
+                  Options
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>
+                    New Build
+                  </DropdownItem>
+                  <DropdownItem>
+                    About
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem>
+                    User Profile (WIP)
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             </Nav>
+            {/* <NavItem> */}
+            {/* <NavLink href="/login">Login</NavLink> */}
+            <Button onClick={this.props.clearToken}>Logout</Button>
+            {/* </NavItem> */}
           </Collapse>
         </Navbar>
       </div>
+      // <Navbar color="faded" light expand="md">
+      //   <NavbarBrand></NavbarBrand>
+      //   <NavbarToggler size="sm" />
+      //   <Collapse navbar>
+      //     <Nav className="ms-auto" navbar>
+      //       <NavItem>
+      //         <Link to="/">Home</Link>
+
+      //       </NavItem>
+      //       <NavItem>
+      //         <Link to="/build">New Build</Link>
+
+      //       </NavItem>
+      //       <NavItem>
+      //       <Button onClick={this.props.clearToken}>Logout</Button>
+      //       </NavItem>
+      //     </Nav>
+      //   </Collapse>
+      // </Navbar>
     );
   }
 }

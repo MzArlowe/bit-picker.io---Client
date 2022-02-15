@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import APIURL from "../Helpers/environments";
-import { Form, FormGroup, Input, Button } from "reactstrap";
+import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 
 type LoginProps = {
   updateToken: (e: string) => void;
@@ -101,6 +101,7 @@ class Login extends React.Component<LoginProps, LoginState> {
               onChange={(e) => this.setState({ email: e.target.value })}
               value={this.state.email}
             />
+            <Label for="exampleEmail">Email</Label>
           </FormGroup>
 
           <FormGroup floating>
@@ -110,6 +111,7 @@ class Login extends React.Component<LoginProps, LoginState> {
               onChange={(e) => this.setState({ password: e.target.value })}
               value={this.state.password}
             />
+            <Label for="examplePassword">Password</Label>
           </FormGroup>
           <Button type="submit">Login</Button>
         </Form>
