@@ -1,16 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Row, Navbar, Collapse } from "reactstrap";
+import { Row, Nav, Collapse } from "reactstrap";
 // import styled from "styled-components";
 
 const Footer = () => {
   return (
-    <Navbar fixed="bottom" expand="md">
-      <Collapse navbar>
-      <Row >
-        <p className="footer1">&copy; 2022 bit-Picker.com &trade;</p>
+    <div>
+      <Row>
+        <Nav className="col-sm-12" navbar>
+          <div>
+          <p className="footer1">&copy; 2022 bit-Picker.com &trade;</p>
+          </div>
+        </Nav>
       </Row>
-      </Collapse>
-    </Navbar>
+    </div>
   );
 };
 

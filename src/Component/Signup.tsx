@@ -14,17 +14,24 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-type Props = {
-  update: any;
+type SignupProps = {
+  updateToken: (e: string) => void;
 };
 
-class Signup extends React.Component<Props, any> {
-  constructor(props: Props) {
+type SignupState = {
+  email: string;
+  password: string;
+  // role: string;
+  message: string;
+};
+
+class Signup extends React.Component<SignupProps, SignupState> {
+  constructor(props: SignupProps) {
     super(props);
     this.state = {
       email: "",
       password: "",
-      role: "user",
+      // role: "user",
       message: "",
     };
   }
@@ -62,6 +69,7 @@ class Signup extends React.Component<Props, any> {
       // }
 
       // set state for session token
+      this.props.updateToken(data.sessionToken);
 
     } catch (error) {
       console.log(error);

@@ -2,23 +2,29 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Logo from "./Assets/Transparent-Logo-Text02.png";
 import './App.css';
-import NavBar from './Component/NavBar';
-import Auth from './PartsPage/Auth';
-import LandingPage from './PartsPage/createBit';
-import Header from './Component/Header';
+import NavBar from "./Component/NavBar";
+import BuildIndex from "./BuildPage/BuildIndex";
+// import Header from "./Component/Header";
+import Auth from './Component/Auth';
 import Footer from './Component/Footer';
 import Loading from './Component/Loading';
-// import BuildIndex from "./BuildPage/buildIndex";
-// import BitIndex from './PartsPage/bitIndex';
+import { BrowserRouter, Router, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+// export interface AppProps {
+//   createBuild: string;
+//   setCreateBuild: (createBuild: string) => void;
+// }
 
 const App: React.FunctionComponent = () => {
   const [loadingGif, setLoadingGif] = useState(true)
+  const [sessionToken, setSessionToken] = useState("");
+  const [createBuild, setCreateBuild] = useState<string>("");
+  const [buildId, setBuildId] = useState<string>("");
   useEffect(() => {
     setTimeout(() => { setLoadingGif(false) }, 3000)
   }, []);
 
-  const [sessionToken, setSessionToken] = useState("");
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -26,9 +32,6 @@ const App: React.FunctionComponent = () => {
     }
   })
 
-  // if (localStorage.getItem("token")) {
-  //   setSessionToken(localStorage.getItem("token"));
-  // }
   const updateToken = (newToken: string) => {
     localStorage.setItem("token", newToken);
     setSessionToken(newToken);
@@ -39,52 +42,62 @@ const App: React.FunctionComponent = () => {
     localStorage.clear();
     setSessionToken("");
   };
-  // const protectedViews = () => {
-  //   return sessionToken === localStorage.getItem("token") ? (
-  //     <BuildIndex
-  //       token={sessionToken}
-  //       clickLogout={clearToken}
-  //       tokenUpdate={updateToken}
-  //     />
-  //   ) : (
-  //     <Auth tokenUpdate={updateToken} />
-  //   );
-  // };
 
   return (
     <>
       {loadingGif === false ? (
         <div className="App">
-          {/* {protectedViews()} // less code to test for return */}
-          {/* <header className="App-header" style={
-            {
-              backgroundColor: "blue",
-              height: "100%",
-              paddingBottom: "50px",
+          <header className="App-header">
+            {!sessionToken &&
+              <div>
+                <img src={Logo} className="App-brand" alt="logo" />
+                <Auth updateToken={
+                  updateToken
+                } />
+              </div>
             }
-          }> */}
-            <img src={Logo} className="App-brand" alt="logo" />
+            <BrowserRouter>
+              <NavBar
+                // clickLogout={() => {}}
+                clearToken={
+                  clearToken
+                } />
+              <Routes>
+                {
+                  sessionToken &&
+                <Route path="/" element={
+                  <div>
+                    <h3>
+                      Welcome to bitPicker!
+                    </h3>
+                  </div>
+                } />
+                }
+                <Route path="/build" element={
+                  <BuildIndex sessionToken={
+                    sessionToken
+                  } buildId={
+                    buildId
+                  } setBuildId={
+                    setBuildId
+                  } createBuild={
+                    createBuild
+                  } setCreateBuild={
+                    setCreateBuild
+                  }
+                  />
+                } />
+              </Routes>
+            </BrowserRouter>
             <div>
-              {/* <Header /> */}
-              {/* <NavBar // does not need to be on splash page
-        clickLogout={() => {}}
-        tokenUpdate={() => {}}
-      /> */}
-              <Auth tokenUpdate={
-                console.log("Hello")
-              } /></div>
-            <div>
-
               <Footer />
             </div>
-          {/* </header> */}
+          </header>
         </div>
-
       ) : (
         <Loading />
       )}
     </>
   );
 }
-
 export default App;

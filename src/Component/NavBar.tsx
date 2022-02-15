@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {
@@ -11,13 +12,13 @@ import {
   Collapse,
 } from "reactstrap";
 
-interface Props {
-  clickLogout: any;
-  tokenUpdate: any;
+interface NavProps {
+  // clickLogout: any;
+  clearToken: () => void;
 }
 
-class NavBar extends React.Component<Props, any> {
-  constructor(props: Props) {
+class NavBar extends React.Component<NavProps, any> {
+  constructor(props: NavProps) {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
@@ -54,7 +55,15 @@ class NavBar extends React.Component<Props, any> {
           <Collapse navbar>
             <Nav className="ms-auto" navbar>
               <NavItem>
-                <Button onClick={this.props.clickLogout}>Logout</Button>
+                <Link to="/">Home</Link>
+                
+              </NavItem>
+              <NavItem>
+                <Link to="/build">New Build</Link>
+               
+              </NavItem>
+              <NavItem>
+              <Button onClick={this.props.clearToken}>Logout</Button>
               </NavItem>
             </Nav>
           </Collapse>

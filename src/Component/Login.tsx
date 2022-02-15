@@ -3,40 +3,40 @@ import { useState, useEffect } from "react";
 import APIURL from "../Helpers/environments";
 import { Form, FormGroup, Input, Button } from "reactstrap";
 
-type Props = {
-  update: any;
+type LoginProps = {
+  updateToken: (e: string) => void;
 };
 
-type State = {
+type LoginState = {
   email: string;
   password: string;
-  sessionToken: any;
+  // sessionToken: any;
 };
 
-class Login extends React.Component<Props, State> { 
-  constructor(props: Props) {
+class Login extends React.Component<LoginProps, LoginState> { 
+  constructor(props: LoginProps) {
     super(props);
     this.state = {
       email: "",
       password: "",
-      sessionToken: "",
+      // sessionToken: "",
     };
   }
-
+  
   handleSubmit = async () => {
+    try {
     let errorCode: number | string;
     console.log(this.state.email, this.state.password);
     console.log(APIURL);
 
-    try {
 
       const login = await fetch(`${APIURL}/user/login`, {
             method: "POST",
             body: JSON.stringify({
-              // users: {
+              user: {
                 email: this.state.email,
                 password: this.state.password,
-              // },
+              },
             }),
             headers: new Headers({
               "Content-Type": "application/json",
@@ -47,11 +47,9 @@ class Login extends React.Component<Props, State> {
       // console.log(signup.json());
       const data = await login.json();
       console.log(data);
-      this.setState({
-        sessionToken: data.sessionToken,
-      });
-      console.log(this.state.sessionToken);
-      this.props.update(this.state.sessionToken);
+    
+      console.log(data.sessionToken);
+      this.props.updateToken(data.sessionToken);
       // if (condition) {
 
       // } else {

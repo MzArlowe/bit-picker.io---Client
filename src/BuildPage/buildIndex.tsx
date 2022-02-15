@@ -1,15 +1,27 @@
-import React from 'react';
-// import CreateBuild from './createBuild';
-// import UpdateBuild from './updateBuild';
+import React, { ErrorInfo } from 'react';
+import CreateBuild from './createBuild';
+import UpdateBuild from './updateBuild';
 import { Container, Row, Col } from 'reactstrap';
 import APIURL from '../Helpers/environments';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-interface Props {
-    token: string;
-    clickLogout: any;
-    tokenUpdate: any;
+export interface BuildIndexProps {
+    sessionToken: string;
+    buildId: string;
+    setBuildId: (buildId: string) => void;
+    createBuild: string
+    setCreateBuild: (createBuild: string) => void;
 };
+export interface BuildIndexState {
+    id: number;
+    name: string;
+    description: string;
+    Complete: boolean;
+    totalPrice: number;
+    updateActive: boolean;
+    build: Build[];
+    editBuild: Build;
+}
 
 export interface Build {
     id: number;
@@ -19,19 +31,29 @@ export interface Build {
     totalPrice: number;
 }
 
-class BuildIndex extends React.Component<Props, any> {
+class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
 
-    constructor(props: Props) {
+    constructor(props: BuildIndexProps) {
         super(props);
         this.state = {
-            build: [],
-            hasError: false, // set to true if there is an error
+            id: 0,
+            name: "",
+            description: "",
+            Complete: false,
+            totalPrice: 0,
             updateActive: false,
-            editBuild: {},
+            build: [],
+            editBuild: {
+                id: 0,
+                name: "",
+                description: "",
+                Complete: false,
+                totalPrice: 0,
+            }
         };
     }
 
-    componentDidCatch(error: any, errorInfo: any) {
+    componentDidCatch(error: Error, errorInfo: ErrorInfo) {
         console.log(error, errorInfo);
     }
 
@@ -40,12 +62,12 @@ class BuildIndex extends React.Component<Props, any> {
     }
 
     fetchBuild = () => {
-        console.log("fetch Builds", this.props.token);
+        console.log("fetch Builds", this.props.sessionToken);
         fetch(`${APIURL}/build`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': `${this.props.token}`
+                'Authorization': `${this.props.sessionToken}`
             })
         }).then((res) => res.json())
             .then((data) => {
@@ -69,38 +91,38 @@ class BuildIndex extends React.Component<Props, any> {
         });
     };
 
-    updateOff = () => { //This is a 
+    updateOff = () => {
         this.setState({
             updateActive: false,
         });
     };
 
     render() {
-        console.log("ClientIndex render");
+        console.log("BuildIndex render");
         console.log(this.state);
         return (
             <div>
                 <Container>
                     <Row>
-                        <Col md="3">
-                            {/* <CreateBuild
-                                token={this.props.token}
-                                fetch={this.fetchBuild}
-                            /> */}
-                        </Col>
-                        <Col md="9">
-                  
-                </Col>
-                        {/* {this.state.updateActive ? (
-                            <UpdateBuild
-                                editBuild={this.state.editBuild}
-                                updateOff={this.updateOff}
-                                token={this.props.token}
+                        <Col md="12">
+                            <CreateBuild
+                                sessionToken={this.props.sessionToken}
                                 fetch={this.fetchBuild}
                             />
+                        
+                 
+                        {this.state.updateActive ? (
+                            <UpdateBuild
+                            sessionToken={this.props.sessionToken}
+                                fetch={this.fetchBuild}
+                                updateOff={this.updateOff}
+                                // editBuild={this.state.editBuild}
+                            />
+                            
                         ) : (
                             <></>
-                        )} */}
+                        )}
+                        </Col>
                     </Row>
                 </Container>
             </div>
