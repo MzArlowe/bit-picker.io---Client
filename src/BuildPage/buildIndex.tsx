@@ -109,19 +109,19 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
                                 sessionToken={this.props.sessionToken}
                                 fetch={this.fetchBuild}
                             />
-                        
-                 
-                        {this.state.updateActive ? (
-                            <UpdateBuild
-                            sessionToken={this.props.sessionToken}
-                                fetch={this.fetchBuild}
-                                updateOff={this.updateOff}
+
+
+                            {this.state.updateActive ? (
+                                <UpdateBuild
+                                    sessionToken={this.props.sessionToken}
+                                    fetch={this.fetchBuild}
+                                    updateOff={this.updateOff}
                                 // editBuild={this.state.editBuild}
-                            />
-                            
-                        ) : (
-                            <></>
-                        )}
+                                />
+
+                            ) : (
+                                <></>
+                            )}
                         </Col>
                     </Row>
                 </Container>
