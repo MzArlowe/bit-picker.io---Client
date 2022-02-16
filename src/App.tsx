@@ -4,20 +4,13 @@ import Logo from "./Assets/Transparent-Logo-Text02.png";
 import './App.css';
 import NavBar from "./Component/NavBar";
 import BuildIndex from "./BuildPage/BuildIndex";
-// import Header from "./Component/Header";
 import Auth from './Component/Auth';
 import Footer from './Component/Footer';
 import Loading from './Component/Loading';
-import { BrowserRouter, Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Router, Routes, Route, useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CreateBuild from "./BuildPage/createBuild";
 import APIURL from './Helpers/environments';
-
-// export interface AppProps {
-//   createBuild: string;
-//   setCreateBuild: (createBuild: string) => void;
-// }
 
 const App: React.FunctionComponent = () => {
   const [loadingGif, setLoadingGif] = useState(true)
@@ -28,6 +21,7 @@ const App: React.FunctionComponent = () => {
     setTimeout(() => { setLoadingGif(false) }, 3000)
   }, []);
 
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -78,14 +72,13 @@ const App: React.FunctionComponent = () => {
           </header>
           <header className="Main-Body">
             <div>
-              <BrowserRouter>
-                <div>
-                  <NavBar
+              {/* <BrowserRouter>                 */}
+                  { sessionToken &&
+                    <NavBar
                     // clickLogout={() => {}}
                     clearToken={
                       clearToken
-                    } />
-                </div>
+                      } />}
                 <Routes>
                   {
                     sessionToken &&
@@ -103,7 +96,7 @@ const App: React.FunctionComponent = () => {
                           <Button
                             color="primary"
                             onClick={() => {
-                              setCreateBuild("createBuild");
+                              navigate(`/build`);
                             }}
                           >
                             Create New Build
@@ -112,8 +105,9 @@ const App: React.FunctionComponent = () => {
                       </div>
                     } />
                   }
-                  <Route path="/build" element={
-                    <BuildIndex sessionToken={
+                  <Route path="/build" element={                   
+                    <BuildIndex 
+                    sessionToken={
                       sessionToken
                     } buildId={
                       buildId
@@ -126,9 +120,10 @@ const App: React.FunctionComponent = () => {
                     }
                     />
                   } />
-                  {
+                  {/* {
                     <Route path="/build/:buildId" element={
-                      <BuildIndex sessionToken={
+                      <BitIndex 
+                      sessionToken={
                         sessionToken
                       } buildId={
                         buildId
@@ -141,16 +136,15 @@ const App: React.FunctionComponent = () => {
 
                       } />
                     } />
-                  }
+                  } */}
                 </Routes>
-              </BrowserRouter>
+              {/* </BrowserRouter> */}
             </div>
           </header>
-          <footer className="footer">
-            <div>
+          
               <Footer />
-            </div>
-          </footer>
+            
+          
         </div>
       ) : (
         <Loading />

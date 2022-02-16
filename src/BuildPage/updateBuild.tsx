@@ -3,14 +3,14 @@ import React from "react";
 import { Button, Form, Modal, ModalHeader, ModalBody, FormGroup, Label, Input } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-type Props = { //Props is the type of the props that are passed into the component
+type UpdateBuildProps = {
     sessionToken: string;
     fetch: () => void;
     updateOff: () => void;
 };
 
-class BuildUpdate extends React.Component<Props, any> {
-    constructor(props: Props) {
+class BuildUpdate extends React.Component<UpdateBuildProps, any> {
+    constructor(props: UpdateBuildProps) {
         super(props);
         this.state = {
             id: 0,

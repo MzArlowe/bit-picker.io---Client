@@ -13,7 +13,7 @@ type FetchBuildState = {
     name: string;
     description: string;
     Complete: boolean;
-    totalPrice : any;
+    totalPrice : number;
 }
 
 // This will be the GET for my Builds

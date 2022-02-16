@@ -70,7 +70,11 @@ class NavBar extends React.Component<NavProps, any> {
               navbar
             >
               <NavItem>
-                <NavLink href="/">Home</NavLink>
+                <div className="nav-link">
+                <Link to="/">
+                  Home
+                  </Link>
+                </div>
               </NavItem>
               <NavItem>
                 <NavLink href="https://https://github.com/MzArlowe/bit-picker.io---Client">
@@ -89,7 +93,9 @@ class NavBar extends React.Component<NavProps, any> {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    New Build
+                    <div className="dropdown-item">
+                  <Link to="/build">New Build</Link>
+                  </div>
                   </DropdownItem>
                   <DropdownItem>
                     About
@@ -108,6 +114,8 @@ class NavBar extends React.Component<NavProps, any> {
           </Collapse>
         </Navbar>
       </div>
+
+      //FOR REFERENCE
       // <Navbar color="faded" light expand="md">
       //   <NavbarBrand></NavbarBrand>
       //   <NavbarToggler size="sm" />

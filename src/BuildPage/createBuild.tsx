@@ -1,4 +1,4 @@
-import APIUR from "../Helpers/environments"
+import APIURL from "../Helpers/environments"
 import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 type CreateBuildProps = {
     sessionToken: string;
     setBuildId: (buildId: string) => void;
-    createBuild: (createBuild: string) => void;
+    createBuild: string
     fetchBuild: (fetchBuild: string) => void;
 };
 
@@ -14,7 +14,7 @@ type CreateBuildState = {
     id: number;
     name: string;
     description: string;
-    Complete: boolean;
+    complete: boolean;
     totalPrice: any;
 }
 
@@ -25,7 +25,7 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
             id: 0,
             name: "",
             description: "",
-            Complete: false,
+            complete: false,
             totalPrice: 0,
         };
     }
@@ -34,21 +34,23 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
         console.log("handleSubmit",
             this.state.name,
             this.state.description,
-            this.state.Complete,
+            this.state.complete,
             this.state.totalPrice,
         );
 
-        fetch(`${APIUR}/user/build`, {
+        fetch(`${APIURL}/build/create`, {
             method: "POST",
             body: JSON.stringify({
+                buildList: {
                 name: this.state.name,
                 description: this.state.description,
-                Complete: this.state.Complete,
+                complete: this.state.complete,
                 totalPrice: this.state.totalPrice,
+                }
             }),
             headers: new Headers({
                 "Content-Type": "application/json",
-                "Authorization": this.props.sessionToken,
+                "Authorization": `Bearer ${this.props.sessionToken}`,
             }),
         })
             .then((res) => res.json())
@@ -73,10 +75,10 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
     render() {
         return (
             <div>
-                <h2>Build Info</h2>
+                <h1>Build Info</h1>
                 <Form inline onSubmit={(e) => { e.preventDefault(); this.handleSubmit(); }}>
                     <FormGroup>
-                        <Label for="name">Build Name</Label>
+                        <Label for="name"></Label>
                         <Input
                             type="text"
                             name="name"
@@ -89,7 +91,7 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
                         </Input>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="description">Description</Label>
+                        <Label for="description"></Label>
                         <Input
                             type="text"
                             name="description"
@@ -100,23 +102,9 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
                             }}
                         > {" "}
                         </Input>
-                    </FormGroup>
+                    </FormGroup>                    
                     <FormGroup>
-                        <Label for="Complete">Complete?</Label>
-                        <Input
-                            type="checkbox"
-                            name="Complete"
-                            id="Complete"
-                            placeholder="Complete"
-                            checked={this.state.Complete}
-                            onChange={(e) => {
-                                this.setState({ Complete: !this.state.Complete, });
-                            }}
-                        > {" "}
-                        </Input>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="totalPrice">Total Price</Label>
+                        <Label for="totalPrice"></Label>
                         <Input
                             type="text"
                             name="totalPrice"
@@ -124,6 +112,20 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
                             placeholder="Total Price"
                             onChange={(e) => {
                                 this.setState({ totalPrice: e.target.value, });
+                            }}
+                        > {" "}
+                        </Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="Complete">Complete?</Label>
+                        <Input
+                            type="checkbox"                              
+                            name="Complete"                            
+                            id="Complete"
+                            placeholder="Complete"
+                            checked={this.state.complete}
+                            onChange={(e) => {
+                                this.setState({ complete: !this.state.complete, });
                             }}
                         > {" "}
                         </Input>

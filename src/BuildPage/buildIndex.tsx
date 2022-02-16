@@ -9,8 +9,8 @@ export interface BuildIndexProps {
     sessionToken: string;
     buildId: string;
     setBuildId: (buildId: string) => void;
-    createBuild: (createBuild: string) => void;
-    fetchBuild: (fetchBuild: string) => void;
+    createBuild: string;
+    setCreateBuild: (createBuild: string) => void;
 };
 export interface BuildIndexState {
     id: number;
@@ -111,8 +111,6 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
                                 createBuild={this.props.createBuild}
                                 fetchBuild={this.fetchBuild}
                             />
-
-
                             {this.state.updateActive ? (
                                 <UpdateBuild
                                     sessionToken={this.props.sessionToken}
