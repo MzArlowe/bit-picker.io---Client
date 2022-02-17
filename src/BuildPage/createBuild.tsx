@@ -15,7 +15,7 @@ type CreateBuildState = {
     name: string;
     description: string;
     complete: boolean;
-    totalPrice: any;
+    totalPrice: number;
 }
 
 class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
@@ -56,7 +56,8 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
             .then((res) => res.json())
             .then((data) => {
                 console.log("data", data);
-                this.props.setBuildId(data.id);   
+                this.props.setBuildId(data.id); 
+                this.props.fetchBuild("")  
             });
     };
 
@@ -72,11 +73,16 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
         });
     }
 
+    testType = (e: any) => {
+        console.log('Target Value:', typeof e.target.value);
+    }
+
     render() {
         return (
             <div>
                 <h1>Build Info</h1>
                 <Form inline onSubmit={(e) => { e.preventDefault(); this.handleSubmit(); }}>
+
                     <FormGroup>
                         <Label for="name"></Label>
                         <Input
@@ -90,6 +96,7 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
                         > {" "}
                         </Input>
                     </FormGroup>
+
                     <FormGroup>
                         <Label for="description"></Label>
                         <Input
@@ -102,7 +109,8 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
                             }}
                         > {" "}
                         </Input>
-                    </FormGroup>                    
+                    </FormGroup> 
+
                     <FormGroup>
                         <Label for="totalPrice"></Label>
                         <Input
@@ -110,12 +118,19 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
                             name="totalPrice"
                             id="totalPrice"
                             placeholder="Total Price"
-                            onChange={(e) => {
-                                this.setState({ totalPrice: e.target.value, });
-                            }}
+                            // onChange={(e) => {
+                            //     this.setState({ totalPrice: e.target.value, })
+                            // }}
+                            onChange={(e) => { this.testType(e); }}
                         > {" "}
                         </Input>
                     </FormGroup>
+
+                    <Button onClick={() => { this.handleSubmit(); }}
+                        > {" "}
+                        </Button>
+                    {/* </FormGroup> */}
+
                     <FormGroup>
                         <Label for="Complete">Complete?</Label>
                         <Input
@@ -130,7 +145,9 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
                         > {" "}
                         </Input>
                     </FormGroup>
+
                     <Button>Submit</Button>
+
                 </Form>
             </div>
         );

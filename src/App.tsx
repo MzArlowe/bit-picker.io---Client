@@ -70,7 +70,7 @@ const App: React.FunctionComponent = () => {
               </div>
             }
           </header>
-          <header className="Main-Body">
+          <div className="Main-Body">
             <div>
               {/* <BrowserRouter>                 */}
                   { sessionToken &&
@@ -140,7 +140,7 @@ const App: React.FunctionComponent = () => {
                 </Routes>
               {/* </BrowserRouter> */}
             </div>
-          </header>
+          </div>
           
               <Footer />
             

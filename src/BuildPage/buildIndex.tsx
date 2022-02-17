@@ -1,6 +1,6 @@
 import React, { ErrorInfo } from 'react';
 import CreateBuild from './createBuild';
-import UpdateBuild from './updateBuild';
+import BuildUpdate from './updateBuild';
 import { Container, Row, Col } from 'reactstrap';
 import APIURL from '../Helpers/environments';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -61,21 +61,40 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
         this.fetchBuild();
     }
 
+    testMap = () => {
+        this.state.build.builds.map((b: Build) => {
+            // return(
+            //     <div>
+            //         <h1>{b.name}</h1>
+            //         </div>
+            // )
+            console.log(b);
+        })
+        }
+
     fetchBuild = () => {
         console.log("fetch Builds", this.props.sessionToken);
         fetch(`${APIURL}/build`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': `${this.props.sessionToken}`
+                'Authorization': `Bearer ${this.props.sessionToken}`
             })
-        }).then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                this.setState({
-                    build: data
-                })
-            });
+        })
+        .then((res) => {
+            // console.log(res)
+            return res.json()
+        })
+        .then((data) => {
+            console.log(data);
+            this.setState({
+                build: data
+        
+            })
+            console.log(this.state.build);
+            this.testMap()
+        }) 
+        .catch ((err) => {console.log('Catch Error', err)})
     };
 
     editUpdateBuild = (build: Build) => {
@@ -97,6 +116,8 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
         });
     };
 
+
+
     render() {
         console.log("BuildIndex render");
         console.log(this.state);
@@ -112,7 +133,7 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
                                 fetchBuild={this.fetchBuild}
                             />
                             {this.state.updateActive ? (
-                                <UpdateBuild
+                                <BuildUpdate
                                     sessionToken={this.props.sessionToken}
                                     fetch={this.fetchBuild}
                                     updateOff={this.updateOff}

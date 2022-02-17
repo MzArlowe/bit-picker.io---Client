@@ -7,13 +7,9 @@ const Footer = () => {
   return (
     <div>
       <Row>
-        
         <div className="col-sm-12">
-          
           <p className="footer1">&copy; 2022 bit-Picker.com &trade;</p>
-          
         </div>
-        
       </Row>
     </div>
   );

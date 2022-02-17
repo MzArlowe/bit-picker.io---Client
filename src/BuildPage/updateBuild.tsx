@@ -9,7 +9,15 @@ type UpdateBuildProps = {
     updateOff: () => void;
 };
 
-class BuildUpdate extends React.Component<UpdateBuildProps, any> {
+type UpdateBuildState = {
+    id: number;
+    name: string;
+    description: string;
+    Complete: boolean;
+    totalPrice: number;
+};
+
+class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
     constructor(props: UpdateBuildProps) {
         super(props);
         this.state = {
@@ -18,69 +26,70 @@ class BuildUpdate extends React.Component<UpdateBuildProps, any> {
             description: "",
             Complete: false,
             totalPrice: 0,
-            modal: false,
         };
     }
 
-    toggle = () => {
-        this.setState({
-            modal: !this.state.modal,
-        });
-    };
+    handleSubmit = () => {
+        console.log("handleSubmit",
+            this.state.name,
+            this.state.description,
+            this.state.Complete,
+            this.state.totalPrice,
+        );
 
-    handleSubmit = (event: any) => {
-        event.preventDefault();
-        console.log("handleSubmit", this.state.name, this.state.description, this.state.Complete, this.state.totalPrice);
-
-        fetch(`${APIURL}/build`, {
-            method: "POST",
+        fetch(`${APIURL}/build/update`, {
+            method: "PUT",
             body: JSON.stringify({
+                buildList: {
                 name: this.state.name,
                 description: this.state.description,
-                Complete: this.state.Complete,
+                complete: this.state.Complete,
                 totalPrice: this.state.totalPrice,
+                }
             }),
             headers: new Headers({
                 "Content-Type": "application/json",
-                "Authorization": this.props.sessionToken,
+                "Authorization": `Bearer ${this.props.sessionToken}`,
             }),
         })
             .then((res) => res.json())
             .then((data) => {
                 console.log("data", data);
                 this.props.fetch();
+                this.props.updateOff();
             });
-        this.props.updateOff();
+    };
 
+    componentDidMount() {
         this.setState({
             id: 0,
-            name: "",
-            description: "",
-            Complete: false,
-            totalPrice: 0,
         });
-    };
+    }
 
-    handleChange = (event: any) => {
+    componentWillUnmount() {
         this.setState({
-            [event.target.name]: event.target.value,
+            id: 0,
         });
-    };
+    }
 
     render() {
         return (
             <Modal isOpen={true}>
                 <ModalHeader>Update Build</ModalHeader>
                 <ModalBody>
-                    <Form inline onSubmit={(e) => { e.preventDefault(); this.handleSubmit(e); }}>
+                    <Form>
                         <FormGroup>
                             <Label for="name">Name</Label>
                             <Input
                                 type="text"
                                 name="name"
                                 id="name"
-                                placeholder="Name"
-                                onChange={(e) => { this.setState({ name: e.target.value, }); }}
+                                placeholder="Build Name"
+                                onChange={(e) => {
+                                    this.setState({
+                                        name: e.target.value,
+                                    });
+                                }}
                             />
                         </FormGroup>
                         <FormGroup>
@@ -90,35 +99,35 @@ class BuildUpdate extends React.Component<UpdateBuildProps, any> {
                                 name="description"
                                 id="description"
                                 placeholder="Description"
-                                onChange={(e) => { this.setState({ description: e.target.value, }); }}
-                            />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="Complete">Complete</Label>
-                            <Input
-                                type="text"
-                                name="Complete"
-                                id="Complete"
-                                placeholder="Complete"
-                                onChange={(e) => { this.setState({ Complete: e.target.value, }); }}
+                                onChange={(e) => {
+                                    this.setState({
+                                        description: e.target.value,
+                                    });
+                                }}
                             />
                         </FormGroup>
                         <FormGroup>
                             <Label for="totalPrice">Total Price</Label>
                             <Input
-                                type="text"
+                                type="number"
                                 name="totalPrice"
                                 id="totalPrice"
                                 placeholder="Total Price"
-                                onChange={(e) => { this.setState({ totalPrice: e.target.value, }); }}
+                                onChange={(e) => {
+                                    this.setState({
+                                        totalPrice: e.target.value,                                                                                                                              
+                                    });
+                                    console.log(this.state.totalPrice);
+                                }}
                             />
                         </FormGroup>
-                        <Button type="submit">Submit</Button>
+                        <Button onClick={this.handleSubmit}>Submit</Button>
                     </Form>
                 </ModalBody>
             </Modal>
         );
     }
 }
+
 
 export default BuildUpdate;
