@@ -3,6 +3,7 @@ import APIURL from '../Helpers/environments';
 import { Modal, ModalBody, ModalHeader, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 type updateBitProps = {
+    sessionToken: string;
     updateBit: (e: any) => void;
     token: string;
     fetch: () => void;

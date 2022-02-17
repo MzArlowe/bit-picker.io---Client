@@ -13,7 +13,7 @@ export interface BitIndexProps {
     setBitId: (bitId: string) => void;
     createBit: string;
     setCreateBit: (createBit: string) => void;
-    fetchBit: () => void;
+    fetch: () => void;
 };
 
 export interface BitIndexState {
@@ -61,7 +61,7 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
     }
 
     componentDidMount = () => {
-        this.fetchBit();
+        this.fetch();
     }
 
     editUpdateBit = (bit: Bit) => {
@@ -153,13 +153,13 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
                         sessionToken={this.props.sessionToken} 
                         bitId={this.props.bitId} 
                         setBitId={this.props.setBitId} 
-                        fetchBit={this.props.fetchBit} />
+                        fetchBit={this.props.fetch} />
                         <UpdateBit 
                         sessionToken={this.props.sessionToken} 
                         updateActive={this.state.updateActive} 
                         updateOff={this.updateOff} 
                         updateOn={this.updateOn} 
-                        updateBit={this.updateBit} 
+                        updateBit={this.editUpdateBit} 
                         editBit={this.state.editBit} />
                     </Col>
                         <Button onClick={() => {
