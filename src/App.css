@@ -26,11 +26,11 @@
   color: #61dafb;
 }
 
-.nav-link, .dropdown-item {
+/* .nav-link, .dropdown-item {
   text-decoration: none !important;
   display: block !important;
   align-items: left !important;
-}
+} */
 
 .container {
   padding: 20px;

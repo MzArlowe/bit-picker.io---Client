@@ -72,41 +72,39 @@ const App: React.FunctionComponent = () => {
           </header>
           <div className="Main-Body">
             <div>
-              {/* <BrowserRouter>                 */}
-                  { sessionToken &&
-                    <NavBar
-                    // clickLogout={() => {}}
-                    clearToken={
-                      clearToken
-                      } />}
-                <Routes>
-                  {
-                    sessionToken &&
-                    <Route path="/" element={
-                      <div>
-                        <h3>
-                          Welcome to bitPicker!
-                        </h3>
-                        <hr />
-                        <p>
-                          Please select a build or hit the Create New Build Button to begin.
-                        </p>
-                        {/* Create Build Button */}
-                        <div className="create-build-button">
-                          <Button
-                            color="primary"
-                            onClick={() => {
-                              navigate(`/build`);
-                            }}
-                          >
-                            Create New Build
-                          </Button>
-                        </div>
+              
+              {sessionToken &&
+                <NavBar
+                  clickLogout={clearToken}
+                  clearToken={clearToken}
+                />}
+              <Routes>
+                {sessionToken &&
+                  <Route path="/" element={
+                    <div>
+                      <h3>
+                        Welcome to bitPicker!
+                      </h3>
+                      <hr />
+                      <p>
+                        Please select a build or hit the Create New Build Button to begin.
+                      </p>
+                      {/* Create Build Button */}
+                      <div className="create-build-button">
+                        <Button
+                          color="primary"
+                          onClick={() => {
+                            navigate(`/build`);
+                          }}
+                        >
+                          Create New Build
+                        </Button>
                       </div>
-                    } />
-                  }
-                  <Route path="/build" element={                   
-                    <BuildIndex 
+                    </div>
+                  } />
+                }
+                <Route path="/build" element={
+                  <BuildIndex
                     sessionToken={
                       sessionToken
                     } buildId={
@@ -118,9 +116,9 @@ const App: React.FunctionComponent = () => {
                     } setCreateBuild={
                       setCreateBuild
                     }
-                    />
-                  } />
-                  {/* {
+                  />
+                }/>
+                {/* {
                     <Route path="/build/:buildId" element={
                       <BitIndex 
                       sessionToken={
@@ -137,14 +135,11 @@ const App: React.FunctionComponent = () => {
                       } />
                     } />
                   } */}
-                </Routes>
+              </Routes>
               {/* </BrowserRouter> */}
             </div>
           </div>
-          
-              <Footer />
-            
-          
+          <Footer />
         </div>
       ) : (
         <Loading />

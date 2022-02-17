@@ -19,7 +19,7 @@ import {
 } from "reactstrap";
 
 interface NavProps {
-  // clickLogout: any;
+  clickLogout: () => void;
   clearToken: () => void;
 }
 

@@ -1,7 +1,7 @@
 import React, { ErrorInfo } from 'react';
 import CreateBuild from './createBuild';
 import BuildUpdate from './updateBuild';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Button, Row, Col } from 'reactstrap';
 import APIURL from '../Helpers/environments';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -61,16 +61,35 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
         this.fetchBuild();
     }
 
-    testMap = () => {
-        this.state.build.builds.map((b: Build) => {
-            // return(
-            //     <div>
-            //         <h1>{b.name}</h1>
-            //         </div>
-            // )
-            console.log(b);
+    buildMap = () => {
+        return this.state.build.map((build: Build) => {
+            return (
+                <div className="build-card">
+                    <div key={build.id}>
+                        <h3>{build.name}</h3>
+                        <p>{build.description}</p>
+                        <p>{build.Complete}</p>
+                        <p>{build.totalPrice}</p>
+                        <Button onClick={() => this.editUpdateBuild(build)}>Edit</Button>
+                        <Button onClick={() => this.deleteBuild(build)}>Delete</Button>
+                        {/* <Button onClick={() => this.createBit(bit)}>Start Building</Button> */}
+                        {/* <button onClick={() => this.editUpdateBuild(build)}>Edit</button>
+                    <button onClick={() => this.createBit()}>Start Building</button>
+                    <button onClick={() => this.deleteBuild(build)}>Delete</button> */}
+                    </div>
+                </div>
+            )
         })
-        }
+    }
+    // this.state.build.builds.map((b: Build) => {
+    //     // return(
+    //     //     <div>
+    //     //         <h1>{b.name}</h1>
+    //     //         </div>
+    //     // )
+    //     console.log(b);
+    // })
+    // }
 
     fetchBuild = () => {
         console.log("fetch Builds", this.props.sessionToken);
@@ -81,20 +100,20 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
                 'Authorization': `Bearer ${this.props.sessionToken}`
             })
         })
-        .then((res) => {
-            // console.log(res)
-            return res.json()
-        })
-        .then((data) => {
-            console.log(data);
-            this.setState({
-                build: data
-        
+            .then((res) => {
+                // console.log(res)
+                return res.json()
             })
-            console.log(this.state.build);
-            this.testMap()
-        }) 
-        .catch ((err) => {console.log('Catch Error', err)})
+            .then((data) => {
+                console.log(data);
+                this.setState({
+                    build: data
+
+                })
+                console.log(this.state.build);
+                this.buildMap()
+            })
+            .catch((err) => { console.log('Catch Error', err) })
     };
 
     editUpdateBuild = (build: Build) => {
@@ -116,7 +135,20 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
         });
     };
 
-
+    deleteBuild = (build: Build) => {
+        fetch(`${APIURL}/build/${build.id}`, {
+            method: "DELETE",
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Authorization": this.props.sessionToken,
+            }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("data", data);
+                this.fetchBuild();
+            });
+    }
 
     render() {
         console.log("BuildIndex render");
@@ -144,6 +176,14 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
                             )}
                         </Col>
                     </Row>
+                </Container>
+                <Container>
+                <>
+                <div className="build-card-container">
+                <h2>Current Builds</h2>
+                    {this.buildMap()}
+                </div>
+                </>
                 </Container>
             </div>
         );

@@ -14,7 +14,7 @@ type UpdateBuildState = {
     name: string;
     description: string;
     Complete: boolean;
-    totalPrice: number;
+    totalPrice: any;
 };
 
 class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
@@ -41,10 +41,10 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
             method: "PUT",
             body: JSON.stringify({
                 buildList: {
-                name: this.state.name,
-                description: this.state.description,
-                complete: this.state.Complete,
-                totalPrice: this.state.totalPrice,
+                    name: this.state.name,
+                    description: this.state.description,
+                    complete: this.state.Complete,
+                    totalPrice: this.state.totalPrice,
                 }
             }),
             headers: new Headers({
@@ -72,62 +72,62 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
         });
     }
 
-    render() {
-        return (
-            <Modal isOpen={true}>
-                <ModalHeader>Update Build</ModalHeader>
-                <ModalBody>
-                    <Form>
-                        <FormGroup>
-                            <Label for="name">Name</Label>
-                            <Input
-                                type="text"
-                                name="name"
-                                id="name"
-                                placeholder="Build Name"
-                                onChange={(e) => {
-                                    this.setState({
-                                        name: e.target.value,
-                                    });
-                                }}
-                            />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="description">Description</Label>
-                            <Input
-                                type="text"
-                                name="description"
-                                id="description"
-                                placeholder="Description"
-                                onChange={(e) => {
-                                    this.setState({
-                                        description: e.target.value,
-                                    });
-                                }}
-                            />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="totalPrice">Total Price</Label>
-                            <Input
-                                type="number"
-                                name="totalPrice"
-                                id="totalPrice"
-                                placeholder="Total Price"
-                                onChange={(e) => {
-                                    this.setState({
-                                        totalPrice: e.target.value,                                                                                                                              
-                                    });
-                                    console.log(this.state.totalPrice);
-                                }}
-                            />
-                        </FormGroup>
-                        <Button onClick={this.handleSubmit}>Submit</Button>
-                    </Form>
-                </ModalBody>
-            </Modal>
-        );
+        render() {
+            return (
+                <Modal isOpen={true}>
+                    <ModalHeader>Update Build</ModalHeader>
+                    <ModalBody>
+                        <Form>
+                            <FormGroup>
+                                <Label for="name">Name</Label>
+                                <Input
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    placeholder="Build Name"
+                                    onChange={(e) => {
+                                        this.setState({
+                                            name: e.target.value,
+                                        });
+                                    }}
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="description">Description</Label>
+                                <Input
+                                    type="text"
+                                    name="description"
+                                    id="description"
+                                    placeholder="Description"
+                                    onChange={(e) => {
+                                        this.setState({
+                                            description: e.target.value,
+                                        });
+                                    }}
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="totalPrice">Total Price</Label>
+                                <Input
+                                    type="number"
+                                    name="totalPrice"
+                                    id="totalPrice"
+                                    placeholder="Total Price"
+                                    onChange={(e) => {
+                                        this.setState({
+                                            totalPrice: e.target.value,
+                                        });
+                                        console.log(this.state.totalPrice);
+                                    }}
+                                />
+                            </FormGroup>
+                            <Button onClick={this.handleSubmit}>Submit</Button>
+                        </Form>
+                    </ModalBody>
+                </Modal>
+            );
+        }
     }
-}
 
 
 export default BuildUpdate;

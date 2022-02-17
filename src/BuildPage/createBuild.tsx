@@ -15,7 +15,7 @@ type CreateBuildState = {
     name: string;
     description: string;
     complete: boolean;
-    totalPrice: number;
+    totalPrice: any;
 }
 
 class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
@@ -72,10 +72,13 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
             id: 0,
         });
     }
+//trying to convert a string to a number
 
-    testType = (e: any) => {
+    myPrice = (e: any) => {
         console.log('Target Value:', typeof e.target.value);
     }
+
+    // myTotalPrice = Number(this.state.totalPrice);
 
     render() {
         return (
@@ -118,10 +121,10 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
                             name="totalPrice"
                             id="totalPrice"
                             placeholder="Total Price"
-                            // onChange={(e) => {
-                            //     this.setState({ totalPrice: e.target.value, })
-                            // }}
-                            onChange={(e) => { this.testType(e); }}
+                            onChange={(e) => {
+                                this.setState({ totalPrice: e.target.value, })
+                            }}
+                            // onChange={(e) => { this.testType(e); }}
                         > {" "}
                         </Input>
                     </FormGroup>
