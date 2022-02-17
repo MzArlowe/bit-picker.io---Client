@@ -1,6 +1,5 @@
 import React from "react";
 import APIURL from '../Helpers/environments';
-// import {Posts} from "./postIndex"
 import { Modal, ModalBody, ModalHeader, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 type updateBitProps = {

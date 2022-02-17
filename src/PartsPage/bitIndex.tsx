@@ -1,6 +1,5 @@
 import React from 'react';
 import { ErrorInfo } from 'react';
-import { useState, useEffect } from 'react';
 import CreateBit from './createBit';
 import GetBit from './getBit';
 import UpdateBit from './updateBit';
@@ -145,7 +144,7 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
             <Container>
                 <Row>
                     <Col md="6">
-                        <h1>Update Parts</h1>
+                        <h1>Update</h1>
                         <CreateBit 
                         sessionToken={this.props.sessionToken} 
                         createBit={this.props.createBit} 

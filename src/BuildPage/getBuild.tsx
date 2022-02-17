@@ -14,6 +14,7 @@ type FetchBuildState = {
     description: string;
     Complete: boolean;
     totalPrice : number;
+    
 }
 
 // This will be the GET for my Builds
@@ -27,6 +28,7 @@ export class GetBuild extends React.Component<GetBuildProps, FetchBuildState> {
             description: "",
             Complete: false,
             totalPrice: 0,
+            
         };
     }
 
@@ -67,6 +69,48 @@ export class GetBuild extends React.Component<GetBuildProps, FetchBuildState> {
                 this.props.fetchBuild();
             });
     }
+
+    // const display = document.getElementById('builds');
+    // for (i = 0; i = display?.childNodes.length; i++) {
+    //     display.childNodes[i].remove();
+    //     display.removeChild(display.childNodes[i]);
+
+    // if (data.length === 0)
+    //    let display = document.getElementById('builds');
+    //    let header = document.createElement('h1');
+
+    //    display.appendChild(header);
+    //      header.innerHTML = "No Builds Found";
+    //      header.setAttribute('class', 'no-builds');
+    // } else {
+    //     for(i = 0; i < DataTransfer.length; i++) {
+    //         let display = document.getElementById('builds');
+    //         let header = document.createElement('h1');
+    //         let build = document.createElement('div');
+    //         let name = document.createElement('p');
+    //         let description = document.createElement('p');
+    //         let Complete = document.createElement('p');
+    //         let totalPrice = document.createElement('p');
+    //         let edit = document.createElement('button');
+    //         let delete = document.createElement('button');
+    //         let start = document.createElement('button');
+     
+    // const displayBuilds = () => {
+    //     return this.props.builds.map((build) => {
+    //         return (
+    //             <div key={build.id}>
+    //                 <h3>{build.name}</h3>
+    //                 <p>{build.description}</p>
+    //                 <p>{build.complete}</p>
+    //                 <p>{build.totalPrice}</p>
+    //             </div>
+    //         );
+    //     })
+    // .catch((error) => {
+    //     console.log(error);
+    // });
+
+    //     }
 
     render() {
         return (

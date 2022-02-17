@@ -7,6 +7,7 @@ type CreateBuildProps = {
     sessionToken: string;
     setBuildId: (buildId: string) => void;
     createBuild: string
+    setCreateBuild: (createBuild: string) => void;
     fetchBuild: (fetchBuild: string) => void;
 };
 
@@ -60,6 +61,14 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
                 this.props.fetchBuild("")  
             });
     };
+
+    handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value,
+        } as any);
+    };
+
 
     componentDidMount() {
         this.setState({

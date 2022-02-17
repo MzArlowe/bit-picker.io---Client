@@ -15,7 +15,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 2-10-2022 - Tests - Runs with errors. Missing code will be finished today. 
 2-16-2022 - Configured the fetch to work and got some issues worked out with the server code. Repushed to Heroku.
 2-17-2022 - Added and fixed code in updateBuild, added component code in bitIndex and updateBit is 'done'.
-
+2-17-2022 - Coded my CreateBit, GetBit, and my UpdateBit.
 Comments
 
 ## Learn More
