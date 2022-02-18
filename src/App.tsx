@@ -17,6 +17,7 @@ const App: React.FunctionComponent = () => {
   const [sessionToken, setSessionToken] = useState("");
   const [createBuild, setCreateBuild] = useState<string>("");
   const [buildId, setBuildId] = useState<string>("");
+
   useEffect(() => {
     setTimeout(() => { setLoadingGif(false) }, 3000)
   }, []);
@@ -38,6 +39,7 @@ const App: React.FunctionComponent = () => {
     console.log("clearToken")
     localStorage.clear();
     setSessionToken("");
+    navigate(`/`);
   };
 
   const deleteBuild = () => {
@@ -56,7 +58,11 @@ const App: React.FunctionComponent = () => {
       });
   };
 
+
+
+
   return (
+
     <>
       {loadingGif === false ? (
         <div className="App">
@@ -64,19 +70,20 @@ const App: React.FunctionComponent = () => {
             {!sessionToken &&
               <div>
                 <img src={Logo} className="App-brand" alt="logo" />
-                <Auth updateToken={
-                  updateToken
-                } />
+                <Auth
+                  updateToken={updateToken}
+                  clearToken={clearToken} />
               </div>
             }
           </header>
           <div className="Main-Body">
             <div>
-              
+
               {sessionToken &&
                 <NavBar
                   clickLogout={clearToken}
                   clearToken={clearToken}
+
                 />}
               <Routes>
                 {sessionToken &&
@@ -103,6 +110,7 @@ const App: React.FunctionComponent = () => {
                     </div>
                   } />
                 }
+                {
                 <Route path="/build" element={
                   <BuildIndex
                     sessionToken={
@@ -117,7 +125,7 @@ const App: React.FunctionComponent = () => {
                       setCreateBuild
                     }
                   />
-                }/>
+                } />}
                 {/* {
                     <Route path="/build/:buildId" element={
                       <BitIndex 

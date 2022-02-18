@@ -24,6 +24,7 @@ class Login extends React.Component<LoginProps, LoginState> {
   }
   
   handleSubmit = async () => {
+    console.log(this.props);
     try {
     let errorCode: number | string;
     console.log(this.state.email, this.state.password);
@@ -44,17 +45,17 @@ class Login extends React.Component<LoginProps, LoginState> {
             }),
           })
 
-      // console.log(signup.json());
       const data = await login.json();
       console.log(data);
     
       console.log(data.sessionToken);
-      this.props.updateToken(data.sessionToken);
-      // if (condition) {
 
-      // } else {
+      if (data.sessionToken !== undefined) {
+        this.props.updateToken(data.sessionToken);
 
-      // }
+      } else {
+        return alert("User already exists");
+      }
     } catch (error) {
       console.log(error);
     }

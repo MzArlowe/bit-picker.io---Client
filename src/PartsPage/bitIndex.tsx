@@ -1,7 +1,7 @@
 import React from 'react';
 import { ErrorInfo } from 'react';
 import CreateBit from './createBit';
-import GetBit from './getBit';
+// import GetBit from './getBit';
 import UpdateBit from './updateBit';
 import { Button, Container, Row, Col } from 'reactstrap';
 import APIURL from '../Helpers/environments';
@@ -23,8 +23,8 @@ export interface BitIndexState {
     url: string;
     price: number;
     updateActive: boolean;
-    bit: Bit[];
-    editBit: Bit;
+    bit: Bit;
+    editBit: Bit[];
 };
 
 export interface Bit {
@@ -46,14 +46,14 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
             url: "",
             price: 0,
             updateActive: false,
-            bit: [],
-            editBit: {
+            bit: {
                 id: 0,
                 name: "",
                 description: "",
                 url: "",
                 price: 0,
-            }
+            },
+            editBit:[]
         };
     }
     componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -61,12 +61,12 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
     }
 
     componentDidMount = () => {
-        this.fetch();
+        this.props.fetch();
     }
 
     editUpdateBit = (bit: Bit) => {
         this.setState({
-            editBit: bit,
+            bit: bit,
             updateActive: true,
         });
     }
@@ -94,11 +94,13 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
         }).then((res) => res.json())
             .then((data) => {
                 console.log(data);
-                this.setState({
-                    bit: this.state.bit.filter((curBit) => {
-                        return curBit.id !== bit.id;
-                    })
-                })
+                // const bitFilter = this.state.editBit.filter((curBit: Bit) => {
+                //     return curBit.id !== bit.id;
+                // })
+                // this.setState({
+                //     bit: bitFilter
+                // })
+                this.props.fetch();
             })
     }
 
@@ -126,7 +128,7 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
                 console.log(data);
                 this.setState({
                     updateActive: false,
-                    editBit: {
+                    bit: {
                         id: 0,
                         name: "",
                         description: "",
@@ -147,20 +149,25 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
                         <h1>Update</h1>
                         <CreateBit 
                         sessionToken={this.props.sessionToken} 
+                        fetchBit={this.props.fetch}
+                        setBitId={this.props.setBitId}
                         createBit={this.props.createBit} 
                         setCreateBit={this.props.setCreateBit} />
-                        <GetBit 
+
+                        {/* <GetBit 
                         sessionToken={this.props.sessionToken} 
                         bitId={this.props.bitId} 
                         setBitId={this.props.setBitId} 
-                        fetchBit={this.props.fetch} />
+                        fetchBit={this.props.fetch} /> */}
+
                         <UpdateBit 
-                        sessionToken={this.props.sessionToken} 
-                        updateActive={this.state.updateActive} 
-                        updateOff={this.updateOff} 
-                        updateOn={this.updateOn} 
-                        updateBit={this.editUpdateBit} 
-                        editBit={this.state.editBit} />
+                        sessionToken={this.props.sessionToken}
+                        updateBit={this.editUpdateBit}
+                        updateOff={this.updateOff}
+                        editBit={this.state.editBit}
+                        bit={this.state.bit}
+                        fetch={this.props.fetch}                                    
+                        />
                     </Col>
                         <Button onClick={() => {
                             this.props.sessionToken
@@ -169,7 +176,7 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
                 <Row>
                     <Col md="6">
                         <ul>
-                            {this.state.bit.map((bit) => {
+                            {this.state.editBit.map((bit) => {
                                 return (
                                     <li key={bit.id}>
                                         <h3>{bit.name}</h3>

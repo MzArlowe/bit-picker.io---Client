@@ -16,7 +16,7 @@ type CreateBuildState = {
     name: string;
     description: string;
     complete: boolean;
-    totalPrice: any;
+    totalPrice: string;
 }
 
 class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
@@ -27,7 +27,7 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
             name: "",
             description: "",
             complete: false,
-            totalPrice: 0,
+            totalPrice: "",
         };
     }
 
@@ -126,7 +126,7 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
                     <FormGroup>
                         <Label for="totalPrice"></Label>
                         <Input
-                            type="text"
+                            type="number"
                             name="totalPrice"
                             id="totalPrice"
                             placeholder="Total Price"

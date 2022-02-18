@@ -6,9 +6,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 type CreateBitProps = {
     sessionToken: string;
     fetchBit: () => void;
-    updateOff: () => void;
-    setBitId: (bit: any) => void;
+    // updateOff: () => void;
     createBit: string;
+    setBitId: (bit: any) => void;
     setCreateBit: (createBit: string) => void;
 
 };

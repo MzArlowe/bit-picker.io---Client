@@ -5,14 +5,14 @@ import { Container, Button, Row, Col } from 'reactstrap';
 import APIURL from '../Helpers/environments';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export interface BuildIndexProps {
+type BuildIndexProps = {
     sessionToken: string;
     buildId: string;
     setBuildId: (buildId: string) => void;
     createBuild: string;
     setCreateBuild: (createBuild: string) => void;
 };
-export interface BuildIndexState {
+type BuildIndexState = {
     id: number;
     name: string;
     description: string;
@@ -62,10 +62,10 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
     }
 
     buildMap = () => {
-        return this.state.build.map((build: Build) => {
+        return this.state.build.map((build: Build, idx: number) => {
             return (
                 <div className="build-card">
-                    <div key={build.id}>
+                    <div key={idx}>
                         <h3>{build.name}</h3>
                         <p>{build.description}</p>
                         <p>{build.Complete}</p>
@@ -107,7 +107,7 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
             .then((data) => {
                 console.log(data);
                 this.setState({
-                    build: data
+                    build: data.builds
 
                 })
                 console.log(this.state.build);
@@ -162,6 +162,7 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
                                 sessionToken={this.props.sessionToken}
                                 setBuildId={this.props.setBuildId}
                                 createBuild={this.props.createBuild}
+                                setCreateBuild={this.props.setCreateBuild}
                                 fetchBuild={this.fetchBuild}
                             />
                             {this.state.updateActive ? (

@@ -9,6 +9,7 @@ import {
   FormFeedback,
   FormText,
   List,
+  Alert,
 } from "reactstrap";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -61,15 +62,12 @@ class Signup extends React.Component<SignupProps, SignupState> {
         
       // console.log(signup.json());
       const data = await signup.json();
-          
-      // if (condition) {
-        
-      // } else {
-        
-      // }
+      if (data.sessionToken !== undefined) {
+        this.props.updateToken(data.sessionToken);
 
-      // set state for session token
-      this.props.updateToken(data.sessionToken);
+      } else {
+        return alert("User already exists");
+      }
 
     } catch (error) {
       console.log(error);

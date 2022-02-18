@@ -1,14 +1,15 @@
 import React from "react";
 import APIURL from '../Helpers/environments';
 import { Modal, ModalBody, ModalHeader, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Bit } from './bitIndex';
 
 type updateBitProps = {
     sessionToken: string;
     updateBit: (e: any) => void;
-    token: string;
     fetch: () => void;
     updateOff: () => void;
-    bit: string;
+    editBit: Bit[];
+    bit: Bit;
 };
 
 type State = {
@@ -57,7 +58,7 @@ class UpdateBit extends React.Component<updateBitProps, State> {
             }),
             headers: new Headers({
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${this.props.token}`,
+                "Authorization": `Bearer ${this.props.sessionToken}`,
             }),
         })
             .then((res) => res.json())

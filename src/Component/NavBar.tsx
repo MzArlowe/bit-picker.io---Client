@@ -47,9 +47,9 @@ class NavBar extends React.Component<NavProps, any> {
     });
   };
 
-  componentDidMount = () => { };
-
-  render() {
+  componentDidMount = () => {}
+    
+    render() {
     if (this.state.hasError) {
       return <h1>Error</h1>;
     }
@@ -109,7 +109,8 @@ class NavBar extends React.Component<NavProps, any> {
             </Nav>
             {/* <NavItem> */}
             {/* <NavLink href="/login">Login</NavLink> */}
-            <Button onClick={this.props.clearToken}>Logout</Button>
+            <Button onClick={() => this.props.clearToken()}>Logout</Button>
+            
             {/* </NavItem> */}
           </Collapse>
         </Navbar>

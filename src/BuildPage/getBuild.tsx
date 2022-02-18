@@ -1,4 +1,4 @@
-import APIUR from "../Helpers/environments"
+import APIURL from "../Helpers/environments"
 import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -40,7 +40,7 @@ export class GetBuild extends React.Component<GetBuildProps, FetchBuildState> {
         this.state.totalPrice,
         );
 
-        fetch(`${APIUR}/`, {
+        fetch(`${APIURL}/`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -56,7 +56,7 @@ export class GetBuild extends React.Component<GetBuildProps, FetchBuildState> {
 
     getAllBuild = () => {
         console.log("GetAllBuild", this.props.sessionToken);
-        fetch(`${APIUR}/`, {
+        fetch(`${APIURL}/`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",

@@ -4,6 +4,7 @@ import Login from "../Component/Login";
 import { Container, Row, Col } from "reactstrap";
 
 type Props = {
+  clearToken: () => void;
   updateToken: (e: string) => void;
 };
 
