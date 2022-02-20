@@ -1,13 +1,16 @@
 import React, { ErrorInfo } from 'react';
 import CreateBuild from './createBuild';
 import BuildUpdate from './updateBuild';
-import { Container, Button, Row, Col } from 'reactstrap';
+// import { useNavigate } from 'react-router-dom';
+import { Container, Button, Row, Col, CardBody, CardTitle, CardText, ButtonGroup } from 'reactstrap';
 import APIURL from '../Helpers/environments';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 type BuildIndexProps = {
     sessionToken: string;
     buildId: string;
+    // updateBuild: string;
+    // setUpdateBuild: (updateBuild: string) => void;
     setBuildId: (buildId: string) => void;
     createBuild: string;
     setCreateBuild: (createBuild: string) => void;
@@ -65,31 +68,30 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
         return this.state.build.map((build: Build, idx: number) => {
             return (
                 <div className="build-card">
+                    <CardBody>
                     <div key={idx}>
-                        <h3>{build.name}</h3>
-                        <p>{build.description}</p>
+                        <CardTitle>
+                        <h3>{build.name}</h3></CardTitle>
+                        <CardText>
+                        <h3>{build.description}</h3>
                         <p>{build.Complete}</p>
                         <p>{build.totalPrice}</p>
-                        <Button onClick={() => this.editUpdateBuild(build)}>Edit</Button>
+                        </CardText>
+                        <ButtonGroup>
+                        <Button outline onClick={() => this.editUpdateBuild(build)}>Edit</Button>
                         <Button onClick={() => this.deleteBuild(build)}>Delete</Button>
+                        <Button onClick={() => this.createBit(build)}>Create Bit</Button>
+                        </ButtonGroup>
                         {/* <Button onClick={() => this.createBit(bit)}>Start Building</Button> */}
                         {/* <button onClick={() => this.editUpdateBuild(build)}>Edit</button>
                     <button onClick={() => this.createBit()}>Start Building</button>
                     <button onClick={() => this.deleteBuild(build)}>Delete</button> */}
                     </div>
+                    </CardBody>
                 </div>
             )
         })
     }
-    // this.state.build.builds.map((b: Build) => {
-    //     // return(
-    //     //     <div>
-    //     //         <h1>{b.name}</h1>
-    //     //         </div>
-    //     // )
-    //     console.log(b);
-    // })
-    // }
 
     fetchBuild = () => {
         console.log("fetch Builds", this.props.sessionToken);
@@ -156,8 +158,10 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
         return (
             <div>
                 <Container>
-                    <Row>
-                        <Col md="12">
+                    <Row xs="2"  >
+                        <Col 
+                        // md="6"
+                        >
                             <CreateBuild
                                 sessionToken={this.props.sessionToken}
                                 setBuildId={this.props.setBuildId}
@@ -165,27 +169,25 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
                                 setCreateBuild={this.props.setCreateBuild}
                                 fetchBuild={this.fetchBuild}
                             />
-                            {this.state.updateActive ? (
-                                <BuildUpdate
-                                    sessionToken={this.props.sessionToken}
-                                    fetch={this.fetchBuild}
-                                    updateOff={this.updateOff}
-                                />
+                        </Col>
 
-                            ) : (
-                                <></>
-                            )}
+                        <Col
+                        // md="6"
+                        >
+                            <div className="build-card-container">
+                                <h2>Current Builds</h2>
+                                {this.buildMap()}
+                            </div>
                         </Col>
                     </Row>
                 </Container>
-                <Container>
+                {/* <Container>
                 <>
-                <div className="build-card-container">
-                <h2>Current Builds</h2>
+                
                     {this.buildMap()}
                 </div>
                 </>
-                </Container>
+                </Container> */}
             </div>
         );
     }

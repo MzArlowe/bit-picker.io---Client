@@ -1,7 +1,7 @@
 import React from 'react';
 import { ErrorInfo } from 'react';
 import CreateBit from './createBit';
-// import GetBit from './getBit';
+import GetBit from './getBit';
 import UpdateBit from './updateBit';
 import { Button, Container, Row, Col } from 'reactstrap';
 import APIURL from '../Helpers/environments';
@@ -154,11 +154,11 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
                         createBit={this.props.createBit} 
                         setCreateBit={this.props.setCreateBit} />
 
-                        {/* <GetBit 
+                        <GetBit 
                         sessionToken={this.props.sessionToken} 
                         bitId={this.props.bitId} 
                         setBitId={this.props.setBitId} 
-                        fetchBit={this.props.fetch} /> */}
+                        fetchBit={this.props.fetch} />
 
                         <UpdateBit 
                         sessionToken={this.props.sessionToken}
@@ -183,12 +183,12 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
                                         <p>{bit.description}</p>
                                         <p>{bit.url}</p>
                                         <p>{bit.price}</p>
-                                        <Button onClick={() => {
+                                        {/* <Button onClick={() => {
                                             this.editUpdateBit(bit);
                                         }}>Edit</Button>
                                         <Button onClick={() => {
                                             this.deleteBit(bit);
-                                        }}>Delete</Button>
+                                        }}>Delete</Button> */}
                                     </li>
                                 )
                             })}

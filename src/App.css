@@ -3,12 +3,25 @@
   background-image: -webkit-gradient(linear, left top, right top, from(#f164da), to(#4d02fa));
   min-height: 100vh;
   height: auto;
+  /* scroll-behavior: fixed; */
 }
 
 .App-brand {
   height: 40vmin;
   pointer-events: none;
   padding: 50px;
+}
+
+a.navbar-brand {
+  color: #516368 !important;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  text-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.5);
 }
 
 .App-header {
@@ -22,27 +35,105 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+A {
+  color: #516368;
+  font-weight: bold;
+  text-decoration: none;
+  }
+
+Button {
+  background-color: #516368 !important;
+  color: white !important;
+  font-size: 1em;
+  /* padding: 10px !important; */
+  /* padding-left: 5px !important; */
+  border-radius: 5px !important;
+  border: none   !important;
+  margin: 10px !important;
+  cursor: pointer !important;
 }
 
-/* .nav-link, .dropdown-item {
-  text-decoration: none !important;
-  display: block !important;
-  align-items: left !important;
-} */
+Button.dropdown-item {
+  background-color: #516368 !important;
+  color: white !important;
+  font-size: 1em;
+  /* padding: 10px !important; */
+  /* padding-left: 5px !important; */
+  border-radius: 5px !important;
+  border: none   !important;
+  margin: 10px !important;
+  cursor: pointer !important;
+}
+
+.build-card-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.build-name {
+  color: #516368 !important;
+  text-shadow: #2a3133 1px 1px 1px !important;
+  font-size: 1.5em !important;
+  margin-top: 10px !important;
+}
+
+H3, H2, H1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 0;
+  padding: 20px;
+  text-shadow: 0 0 10px #000;
+}
+
+P {
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+}
 
 .container {
   padding: 20px;
   display: block;
   /* flex-direction: column; */
-  
+
 }
 
 Label, Input {
   display: block;
   margin-bottom: 10px;
   padding: 10px;
+}
+
+.complete-container {
+  text-align: start;
+  font-size: 1.5em;
+  color: #fff;
+  margin-bottom: 0;
+  padding: 20px;
+  text-shadow: 0 0 10px #000 !important;
+  
+}
+div.card {
+  padding: auto !important;
+  margin-bottom: 8px !important;
+  box-shadow: #2a3133 1px 1px 1px !important;
+}
+/* 
+div.card-body {
+  background-color: azure;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: #000 0 0 10px;*/
+
+.dropdown-item1, .dropdown-item {
+  font-size: 1em;
+  font-weight: bold !important;
+  color: white !important;
 }
 
 .password-list {
@@ -56,7 +147,7 @@ Label, Input {
 }
 
 ul {
-  padding:0 !important;
+  padding: 0 !important;
   font-size: 16px !important;
 }
 

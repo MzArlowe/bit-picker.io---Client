@@ -1,4 +1,5 @@
 import React from "react";
+// import Logo from "../public/favicon.ico";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -60,8 +61,7 @@ class NavBar extends React.Component<NavProps, any> {
           expand="md"
           light
         >
-          <NavbarBrand href="/">
-            BIT-PICKER
+          <NavbarBrand>bit-PICKER
           </NavbarBrand>
           <NavbarToggler onClick={function noRefCheck() { }} />
           <Collapse navbar>
@@ -77,7 +77,7 @@ class NavBar extends React.Component<NavProps, any> {
                 </div>
               </NavItem>
               <NavItem>
-                <NavLink href="https://https://github.com/MzArlowe/bit-picker.io---Client">
+                <NavLink href="https://github.com/MzArlowe/bit-picker.io---Client">
                   My GitHub
                 </NavLink>
               </NavItem>
@@ -91,10 +91,10 @@ class NavBar extends React.Component<NavProps, any> {
                 >
                   Options
                 </DropdownToggle>
-                <DropdownMenu right>
+                <DropdownMenu end>
                   <DropdownItem>
-                    <div className="dropdown-item">
-                  <Link to="/build">New Build</Link>
+                    <div className="dropdown-item1">
+                  <Link to="/build">View All Builds</Link>
                   </div>
                   </DropdownItem>
                   <DropdownItem>
@@ -109,33 +109,12 @@ class NavBar extends React.Component<NavProps, any> {
             </Nav>
             {/* <NavItem> */}
             {/* <NavLink href="/login">Login</NavLink> */}
-            <Button onClick={() => this.props.clearToken()}>Logout</Button>
+            <Button className="logout-btn" outline onClick={() => this.props.clearToken()}>Logout</Button>
             
             {/* </NavItem> */}
           </Collapse>
         </Navbar>
       </div>
-
-      //FOR REFERENCE
-      // <Navbar color="faded" light expand="md">
-      //   <NavbarBrand></NavbarBrand>
-      //   <NavbarToggler size="sm" />
-      //   <Collapse navbar>
-      //     <Nav className="ms-auto" navbar>
-      //       <NavItem>
-      //         <Link to="/">Home</Link>
-
-      //       </NavItem>
-      //       <NavItem>
-      //         <Link to="/build">New Build</Link>
-
-      //       </NavItem>
-      //       <NavItem>
-      //       <Button onClick={this.props.clearToken}>Logout</Button>
-      //       </NavItem>
-      //     </Nav>
-      //   </Collapse>
-      // </Navbar>
     );
   }
 }

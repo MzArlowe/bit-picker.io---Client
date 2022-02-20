@@ -54,7 +54,7 @@ class Login extends React.Component<LoginProps, LoginState> {
         this.props.updateToken(data.sessionToken);
 
       } else {
-        return alert("User already exists");
+        return alert("Invalid Credentials");
       }
     } catch (error) {
       console.log(error);

@@ -13,8 +13,8 @@ type FetchBuildState = {
     name: string;
     description: string;
     Complete: boolean;
-    totalPrice : number;
-    
+    totalPrice: number;
+
 }
 
 // This will be the GET for my Builds
@@ -28,23 +28,23 @@ export class GetBuild extends React.Component<GetBuildProps, FetchBuildState> {
             description: "",
             Complete: false,
             totalPrice: 0,
-            
+
         };
     }
 
     handleSubmit = () => {
-        console.log("handleSubmit", 
-        this.state.name,
-        this.state.description,
-        this.state.Complete,
-        this.state.totalPrice,
+        console.log("handleSubmit",
+            this.state.name,
+            this.state.description,
+            this.state.Complete,
+            this.state.totalPrice,
         );
 
         fetch(`${APIURL}/`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
-                "Authorization": this.props.sessionToken,
+                "Authorization": `Bearer ${this.props.sessionToken}`,
             }),
         })
             .then((res) => res.json())
@@ -60,7 +60,7 @@ export class GetBuild extends React.Component<GetBuildProps, FetchBuildState> {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
-                "Authorization": this.props.sessionToken,
+                "Authorization": `Bearer ${this.props.sessionToken}`,
             }),
         })
             .then((res) => res.json())
@@ -94,7 +94,7 @@ export class GetBuild extends React.Component<GetBuildProps, FetchBuildState> {
     //         let edit = document.createElement('button');
     //         let delete = document.createElement('button');
     //         let start = document.createElement('button');
-     
+
     // const displayBuilds = () => {
     //     return this.props.builds.map((build) => {
     //         return (
@@ -118,15 +118,10 @@ export class GetBuild extends React.Component<GetBuildProps, FetchBuildState> {
                 <Form>
                     <FormGroup>
                         <Label for="name">Name</Label>
-                        <Input
-                            type="text"
-                            name="name"
-                            id="name"
-                            placeholder="Name"
+                        <Input type="text" name="name" id="name" placeholder="Name"
                             onChange={(e) => {
                                 this.setState({ name: e.target.value });
-                            }
-                            }
+                            }}
                         />
                     </FormGroup>
                     <FormGroup>
