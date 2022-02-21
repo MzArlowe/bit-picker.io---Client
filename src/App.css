@@ -4,6 +4,7 @@
   min-height: 100vh;
   height: auto;
   /* scroll-behavior: fixed; */
+  overflow-x: hidden;
 }
 
 .App-brand {
@@ -160,3 +161,12 @@ ul {
   font-size: calc(10px + 2vmin);
   color: white !important;
 }
+/* 
+.footer {
+  position: sticky !important;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+} */

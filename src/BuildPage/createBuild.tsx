@@ -47,7 +47,7 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
                     description: this.state.description,
                     complete: this.state.complete,
                     totalPrice: this.state.totalPrice,
-                }
+                },
             }),
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -56,7 +56,7 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log("data", data);
+                console.log(data);
                 this.props.setBuildId(data.id);
                 this.props.fetchBuild("")
             });
@@ -112,8 +112,7 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
             <div>
                 <h1>Create Build</h1>
                             <Form inline onSubmit={(e) => { e.preventDefault(); this.handleSubmit(); }}>
-                               
-                                <FormGroup>
+                               <FormGroup>
                                     <Label for="name"></Label>
                                     <Input
                                         type="text"
@@ -139,7 +138,6 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
                                     > {" "}
                                     </Input>
                                 </FormGroup>
-
                                 <FormGroup>
                                     <Label for="totalPrice"></Label>
                                     <Input
@@ -172,8 +170,7 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
                                 </div>
                                 <Button>Submit</Button>
                             </Form>
-                   
-                </div>
+                    </div>
         );
     }
 }

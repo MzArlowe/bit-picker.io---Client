@@ -11,24 +11,28 @@ import Footer from './Component/Footer';
 import Loading from './Component/Loading';
 // import Build from "./BuildPage/createBuild";
 import { Build } from "./BuildPage/BuildIndex";
+import Bit from "./PartsPage/bitIndex";
 import { Button, Container, Row, Col, Card, CardBody, CardTitle, CardText, ButtonGroup } from "reactstrap";
 import { Router, Routes, Route, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import APIURL from './Helpers/environments';
+import { idText } from "typescript";
+import { endianness } from "os";
 
 const App: React.FunctionComponent = () => {
   const [loadingGif, setLoadingGif] = useState(true)
   const [sessionToken, setSessionToken] = useState("");
   const [createBuild, setCreateBuild] = useState<string>("");
   const [buildId, setBuildId] = useState<string>("");
-  // const [fetchBuild, setFetchBuild] = useState<string>("");
-  // const [fetchBit, setFetchBit] = useState<string>("");
-  // const [bitId, setBitId] = useState<string>("");
-  // const [createBit, setCreateBit] = useState<string>("");
-  // const [updateBit, setUpdateBit] = useState<string>("");
-  // const [updateBuild, setUpdateBuild] = useState<string>("");
+  const [updateBuild, setUpdateBuild] = useState<string>("");
+  const [bitId, setBitId] = useState<string>("");
+  const [createBit, setCreateBit] = useState<string>("");
+  const [updateBit, setUpdateBit] = useState<string>("");
   // const [updateActive, setUpdateActive] = useState<boolean>(false);
   const [buildArray, setBuildArray] = useState<Build[]>([]);
+  const [bitArray, setBitArray] = useState<Bit[]>
+  
+  ([]);
 
   useEffect(() => {
     setTimeout(() => { setLoadingGif(false) }, 3000)
@@ -96,6 +100,25 @@ const App: React.FunctionComponent = () => {
       .catch((err) => { console.log('Catch Error', err) })
   };
 
+const fetchBit = (buildId: string) => {
+  console.log("fetch Bit", sessionToken);
+  fetch(`${APIURL}/build/bit/${buildId}`, {
+    method: 'GET',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionToken}`
+    })
+  })
+    .then((res) => {
+      // console.log(res)
+      return res.json()
+    })
+    .then((data) => {
+      console.log(data);
+      setBuildArray(data.builds);
+    })
+    .catch((err) => { console.log('Catch Error', err) })
+};
 
 
   return (
@@ -164,43 +187,59 @@ const App: React.FunctionComponent = () => {
                       createBuild
                     } setCreateBuild={
                       setCreateBuild
+                    } buildArray={
+                      buildArray
+                    } setBuildArray={
+                      setBuildArray
                     }
                      />
                 } />}
-                {/* {<Route path="/build/:buildId" element={
+                {/* {sessionToken &&
+                  <Route path="/build/bit" element={
                         <BitIndex
                           sessionToken={
-                            sessionToken
-                          } bitId={
-                            buildId
-                          } setBitId={
-                            setBuildId
+                            sessionToken                       
                           } createBit={
-                            createBuild
+                            createBit
                           } setCreateBit={
-                            setCreateBuild
-                          } />
+                            setCreateBit
+                          } bitId={
+                            bitId
+                          } setBitId={
+                            setBitId
+                          } updateBit={
+                            updateBit
+                          } setUpdateBit={
+                            setUpdateBit
+                          } 
+                          bitArray={
+                            bitArray
+                          } setBitArray={
+                            setBitArray
+                          }
+                           />
                       } />} */}
-                <Route path="/build/update/:buildId" element={
+                <Route path="/build/update" element={
                   <UpdateBuild
                     sessionToken={
                       sessionToken
                     } editUpdateBuild={
-                      buildId
+                      updateBuild
                     } fetchBuild={
                       fetchBuild
                     }
                   />
                 } />
               </Routes>
+              <Routes>
               {sessionToken &&
+              <Route path="/" element={
                 <Container>
+                  <div className="build-card-container">
+                        <h3>Current Builds</h3>
                   <Row xs="3">
                     <Col sm="3" md={{ size: 6, offset: 3 }}
                     >
-                    <>
-                      <div className="build-card-container">
-                        <h3>Current Builds</h3>
                         {buildArray.map((build, index) => { //map through the buildArray
                           return (
                             <Card key={build.id}>
@@ -216,7 +255,7 @@ const App: React.FunctionComponent = () => {
                                     size="md"
                                     color="primary"
                                     onClick={() => {
-                                      navigate(`/build/${build.id}`);
+                                      // navigate(`/build/bit/${bit.id}`); !!!//
                                     }}
                                   >View Build
                                   </Button>
@@ -244,13 +283,13 @@ const App: React.FunctionComponent = () => {
                             </Card>
                           )
                         }
-                        )}
-                      </div>
-                    </>
-                    </Col>
+                        )}          
+                     </Col>
                   </Row>
+                  </div>
                 </Container>
-              }
+              } />}
+              </Routes>
             </div>
           </div>
           <Footer />

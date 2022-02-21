@@ -1,7 +1,7 @@
 import React from "react";
 import APIURL from '../Helpers/environments';
 import { Modal, ModalBody, ModalHeader, Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import { Bit } from './bitIndex';
+import Bit from './bitIndex';
 
 type updateBitProps = {
     sessionToken: string;

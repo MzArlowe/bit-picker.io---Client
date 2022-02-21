@@ -5,6 +5,7 @@ import { Button, Form, Modal, ModalHeader, ModalBody, FormGroup, Label, Input, R
 import "bootstrap/dist/css/bootstrap.min.css";
 
 type UpdateBuildProps = {
+    id: number;
     sessionToken: string;
     editUpdateBuild: string;
     fetchBuild: () => void;
@@ -24,7 +25,7 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
     constructor(props: UpdateBuildProps) {
         super(props);
         this.state = {
-            editId: +0,
+            editId: 0,
             editName: "",
             editDescription: "",
             editComplete: false,
@@ -34,16 +35,17 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
 
 
     
-    handleSubmit = () => {
-        console.log("handleSubmit",            
-            this.state.editName,
-            this.state.editDescription,
-            this.state.editComplete,
-            this.state.editTotalPrice,
+    // handleSubmit = () => {
+    //     console.log("handleSubmit",            
+    //         this.state.editName,
+    //         this.state.editDescription,
+    //         this.state.editComplete,
+    //         this.state.editTotalPrice,
             
-        );
+    //     );
 
-        fetch(`${APIURL}/build/update/${this.props.editUpdateBuild}`, {
+    updateBuild = () => {
+        fetch(`${APIURL}/build/update/${this.props.editUpdateBuild.id}`, {
             method: "PUT",
             body: JSON.stringify({
                 buildList: {
@@ -62,7 +64,8 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
             .then((data) => {
                 console.log("data", data);
                 this.props.fetchBuild();
-            });
+            })
+            .catch((err) => console.log(err));
     };
 
     componentDidMount() {
@@ -73,11 +76,11 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
 
     componentWillUnmount() {
         this.setState({
-            editId: +0,
+            editId: 0,
         });
     }
 
-    render() {
+    render(    ) {
         return (
             <Modal isOpen={true}>
                 <ModalHeader>Update Build</ModalHeader>
@@ -143,7 +146,7 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
                             </Col>
                             </Row>
                         </FormGroup>
-                        <Button onClick={this.handleSubmit}>Submit</Button>
+                        <Button onClick={this.updateBuild}>Submit</Button>
                         <Button type="submit">Update</Button>
                     </Form>
                 </ModalBody>
