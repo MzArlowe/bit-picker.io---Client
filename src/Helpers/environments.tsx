@@ -4,7 +4,8 @@ switch (window.location.hostname) {
     case 'localhost' || '127.0.0.1':
         APIURL = 'http://localhost:3000';
         break;
-    case 'bit-picker-io-client.herokuapp.com':
+    case 'bit-picker-client-io.herokuapp.com':
+        
         APIURL = 'https://bit-picker-io.herokuapp.com';
 }
 
