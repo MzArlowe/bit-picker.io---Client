@@ -16,6 +16,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 2-16-2022 - Configured the fetch to work and got some issues worked out with the server code. Repushed to Heroku.
 2-17-2022 - Added and fixed code in updateBuild, added component code in bitIndex and updateBit is 'done'.
 2-17-2022 - Coded my CreateBit, GetBit, and my UpdateBit.
+2-17-2022 - Got my login and Auth back up and running. Display is showing my builds but now on the actual createBuild.
+2-19&20-2022 - Finally got my builds to display and worked on style. Fetch, Delete, Get work. Update modal works but not the update feature. 
 Comments
 
 ## Learn More

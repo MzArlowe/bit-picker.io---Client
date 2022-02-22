@@ -111,6 +111,7 @@ class CreateBuild extends React.Component<CreateBuildProps, CreateBuildState> {
         return (
             <div>
                 <h1>Create Build</h1>
+                <hr ></hr>
                             <Form inline onSubmit={(e) => { e.preventDefault(); this.handleSubmit(); }}>
                                <FormGroup>
                                     <Label for="name"></Label>

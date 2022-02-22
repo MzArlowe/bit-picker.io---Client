@@ -180,6 +180,7 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
                 <Row>
                     <Col md="6">
                         <h1>Update</h1>
+                        <hr ></hr>
                         {/* <UpdateBit
                             updateBit={this.props.updateBit}
                             setUpdateBit={this.props.setUpdateBit}

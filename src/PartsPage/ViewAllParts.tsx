@@ -63,6 +63,7 @@ export default class ViewAllParts extends React.Component <IProps, IState> {
 
             <div>
                 <h1>View All Parts</h1>
+                <hr ></hr>
                 {this.state.data.length > 0 && this.state.data.map((part: any) => {
                     return (
                         <div key={part.id}>
@@ -76,20 +77,12 @@ export default class ViewAllParts extends React.Component <IProps, IState> {
                             <button className="btn-link">
                             <Link to={`/bit/delete/${part.id}`}>Delete Part</Link>
                             </button>
+                            <button type="submit">Reserve</button>
                         </div>
                         
                     )
                 })}
             </div>
-        
-            // <Button color="danger" onClick={() => {
-            //     this.deleteBit(this.state.data[0].id);
-            // }
-            // }>Delete</Button>
-            // <Button color="primary" onClick={() => {    
-            //     window.location.pathname=`/bit/update/${this.state.data[0].id}`;
-            // }
-            // }>Update</Button>
         );
     }
 }
