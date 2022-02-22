@@ -17,7 +17,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 2-17-2022 - Added and fixed code in updateBuild, added component code in bitIndex and updateBit is 'done'.
 2-17-2022 - Coded my CreateBit, GetBit, and my UpdateBit.
 2-17-2022 - Got my login and Auth back up and running. Display is showing my builds but now on the actual createBuild.
-2-19&20-2022 - Finally got my builds to display and worked on style. Fetch, Delete, Get work. Update modal works but not the update feature. 
+2-19&20-2022 - Finally got my builds to display and worked on style. Fetch, Delete, Get work. Update modal works but not the update feature.
+20-22-2022 - Reached MVP. Added Dropbar for parts. 
 Comments
 
 ## Learn More
