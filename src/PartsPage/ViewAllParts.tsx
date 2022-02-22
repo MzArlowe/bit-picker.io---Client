@@ -42,7 +42,7 @@ export default class ViewAllParts extends React.Component <IProps, IState> {
     deleteBit = (id: number) => {
         const myId = window.location.pathname.split("/")[4];
         console.log(myId);
-        fetch(`<http:localhost:3000>/parts/delete/${id}`, {
+        fetch(`${APIURL}/parts/delete/${id}`, {
             method: "DELETE",
             headers: new Headers({
                 "Content-Type": "application/json",

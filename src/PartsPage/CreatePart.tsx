@@ -1,4 +1,5 @@
 import React from 'react';
+import APIURL from '../Helpers/environments';
 import { Form, FormGroup, Label, Input, Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 interface IProps {
@@ -36,7 +37,7 @@ export default class CreatePart extends React.Component<IProps, IState> {
     create = () => {
         const myId = window.location.pathname.split("/")[3];
         console.log(myId);
-        fetch(`http://localhost:3000/parts/create`, {
+        fetch(`${APIURL}/parts/create`, {
             method: "POST",
             body: JSON.stringify({
                 part: {

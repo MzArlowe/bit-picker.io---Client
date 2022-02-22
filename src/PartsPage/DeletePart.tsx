@@ -1,4 +1,5 @@
 import React from "react";
+import APIURL from "../Helpers/environments";
 import { Link } from "react-router-dom";
 
 interface IProps {
@@ -20,7 +21,7 @@ export default class DeleteBit extends React.Component<IProps, IState> {
 
     componentDidMount() {
         const id = window.location.pathname.split("/")[3];
-        fetch(`http://localhost:3000/parts/delete/${id}`, {
+        fetch(`${APIURL}/parts/delete/${id}`, {
             method: "delete",
             headers: new Headers({
                 "Content-Type": "application/json",
