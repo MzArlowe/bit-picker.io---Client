@@ -1,59 +1,59 @@
 import React from "react";
 import APIURL from '../Helpers/environments';
 import { Modal, ModalBody, ModalHeader, Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import Bit from './bitIndex';
+import "bootstrap/dist/css/bootstrap.min.css";
 
-type updateBitProps = {
+type UpdateBitProps = {
     sessionToken: string;
-    updateBit: (e: any) => void;
-    fetch: () => void;
-    updateOff: () => void;
-    editBit: Bit[];
-    bit: Bit;
+    
 };
 
-type State = {
-    id: number;
-    name: string;
-    description: string;
-    url: string;
-    price: number;
-}
+type UpdateBitState = {
+    editId: string;
+    editName: string;
+    editDescription: string;
+    editUrl: string;
+    editPrice: number;
+    buildId: string;
+};
 
-class UpdateBit extends React.Component<updateBitProps, State> {
-    constructor(props: updateBitProps) {
+// const navigate = useNavigate();
+
+class BitUpdate extends React.Component<UpdateBitProps, UpdateBitState> {
+    constructor(props: UpdateBitProps) {
         super(props);
         this.state = {
-            id: 0,
-            name: "",
-            description: "",
-            url: "",
-            price: 0,
+            editId: window.location.pathname.split("/")[3],
+            editName: "",
+            editDescription: "",
+            editUrl: "",
+            editPrice: 0,
+            buildId: "",
         };
-    }
-
-    componentDidMount() {
-        this.setState({
-            id: 0,
-        });
     }
 
     handleSubmit = () => {
         console.log("handleSubmit",
-            this.state.name,
-            this.state.description,
-            this.state.url,
-            this.state.price,
+            this.state.editId,
+            this.state.editName,
+            this.state.editDescription,
+            this.state.editUrl,
+            this.state.editPrice,
         );
+        this.updateBit();
 
-        fetch(`${APIURL}/bit/update`, {
+    };
+
+    updateBit = () => {
+        fetch(`${APIURL}/parts/update/${this.state.editId}`, {
             method: "PUT",
             body: JSON.stringify({
-                bitList: {
-                    name: this.state.name,
-                    description: this.state.description,
-                    url: this.state.url,
-                    price: this.state.price,
+                part: {
+                    id: this.state.editId,
+                    name: this.state.editName,
+                    description: this.state.editDescription,
+                    complete: this.state.editUrl,
+                    price: this.state.editPrice,
                 }
             }),
             headers: new Headers({
@@ -64,67 +64,111 @@ class UpdateBit extends React.Component<updateBitProps, State> {
             .then((res) => res.json())
             .then((data) => {
                 console.log("data", data);
-                this.props.fetch();
-                this.props.updateOff();
-            });
+                window.location.pathname=`/bit/all/${this.state.buildId}`;
+            })
+            .catch((err) => console.log(err));
     };
 
-    handleChange = (event: any) => {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-        this.setState({
-            [name]: value
-        } as Pick<State, keyof State>);
-
-    };
-
+    componentDidMount() {
+        fetch(`${APIURL}/parts/${this.state.editId}`, {
+            method: "GET",
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${this.props.sessionToken}`,
+            }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("data", data);
+                this.setState({
+                    editId: data.part.id,
+                    editName: data.part.name,
+                    editDescription: data.part.description,
+                    editUrl: data.part.complete,
+                    editPrice: data.part.price,
+                    buildId: data.part.buildId,
+                });
+            })
+            .catch((err) => console.log(err));
+    }
+    
     render() {
+        console.log(this.state.editId)
         return (
             <Modal isOpen={true}>
-                <ModalHeader>Update your Post</ModalHeader>
+                <ModalHeader>Update Part</ModalHeader>
                 <ModalBody>
-                    <Form inline onSubmit={this.handleSubmit}>
-                    </Form>
-                    <Form onSubmit={this.handleSubmit} >
+                    <Form onSubmit={(e) => {
+                        e.preventDefault()
+                        this.handleSubmit()
+                    }}>
+
                         <FormGroup>
-                            <Label for="name">Name:</Label>
-                            <Input type="text"
+                            <Label for="name"></Label>
+                            <Input
+                                type="text"
                                 name="name"
                                 id="name"
-                                value={this.state.name}
-                                onChange={this.handleChange} />
+                                placeholder="Part Name"
+                                onChange={(e) => {
+                                    this.setState({
+                                        editName: e.target.value,
+                                    });
+                                }}
+                            />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="description">Description:</Label>
-                            <Input type="text"
+                            <Label for="description"></Label>
+                            <Input
+                                type="text"
                                 name="description"
                                 id="description"
-                                value={this.state.description}
-                                onChange={this.handleChange} />
+                                placeholder="Description"
+                                onChange={(e) => {
+                                    this.setState({
+                                        editDescription: e.target.value,
+                                    });
+                                }}
+                            />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="url">URL:</Label>
-                            <Input type="text"
+                            <Label for="url"></Label>
+                            <Input
+                                type="text"
                                 name="url"
                                 id="url"
-                                value={this.state.url}
-                                onChange={this.handleChange} />
+                                placeholder="URL"
+                                onChange={(e) => 
+                                    this.setState({
+                                        editUrl: e.target.value,
+                                    })
+                                
+                                }
+                                value={this.state.editUrl}
+                            />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="price">Price:</Label>
-                            <Input type="number"
+                            <Label for="url"></Label>
+                            <Input
+                                type="number"
                                 name="price"
                                 id="price"
-                                value={this.state.price}
-                                onChange={this.handleChange} />
+                                placeholder="Price"
+                                onChange={(e) => {
+                                    this.setState({
+                                        editPrice: parseInt(e.target.value),
+                                    });
+                                    console.log(this.state.editPrice);
+                                }}
+                            />
                         </FormGroup>
-                        <Button type="submit">Submit</Button>
-                    </Form>
+                        {/* <Button onClick={this.updateBit}>Submit</Button> */}
+                        <Button type="submit">Update</Button>
+                        </Form>
                 </ModalBody>
             </Modal>
         );
     }
 }
 
-export default UpdateBit;
+export default BitUpdate;

@@ -5,7 +5,7 @@ import { Button, Form, Modal, ModalHeader, ModalBody, FormGroup, Label, Input, R
 import "bootstrap/dist/css/bootstrap.min.css";
 
 type UpdateBuildProps = {
-    id: number;
+    id: string;
     sessionToken: string;
     editUpdateBuild: string;
     fetchBuild: () => void;
@@ -33,22 +33,26 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
         };
     }
 
+    handleSubmit = () => {
+        console.log("handleSubmit",
+            this.state.editId,
+            this.state.editName,
+            this.state.editDescription,
+            this.state.editComplete,
+            this.state.editTotalPrice,
+        );
+        this.updateBuild();
 
-    
-    // handleSubmit = () => {
-    //     console.log("handleSubmit",            
-    //         this.state.editName,
-    //         this.state.editDescription,
-    //         this.state.editComplete,
-    //         this.state.editTotalPrice,
-            
-    //     );
+    };
 
     updateBuild = () => {
-        fetch(`${APIURL}/build/update/${this.props.editUpdateBuild.id}`, {
+        const myId = window.location.pathname.split("/")[3];
+        console.log(myId);
+        fetch(`${APIURL}/build/update/${myId}`, {
             method: "PUT",
             body: JSON.stringify({
-                buildList: {
+                build: {
+                    id: this.state.editId,
                     name: this.state.editName,
                     description: this.state.editDescription,
                     complete: this.state.editComplete,
@@ -63,14 +67,14 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
             .then((res) => res.json())
             .then((data) => {
                 console.log("data", data);
-                this.props.fetchBuild();
+                window.location.pathname="/";
             })
             .catch((err) => console.log(err));
     };
 
     componentDidMount() {
         this.setState({
-            editId: +this.props.editUpdateBuild,
+            editId: +this.props.editUpdateBuild,//if errors arise, look into parseInt
         });
     }
 
@@ -80,15 +84,20 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
         });
     }
 
-    render(    ) {
+    render() {
+        console.log(this.props.id)
         return (
             <Modal isOpen={true}>
                 <ModalHeader>Update Build</ModalHeader>
                 <ModalBody>
-                    <Form>
+                    <Form onSubmit={(e) => {
+                        e.preventDefault()
+                        this.handleSubmit()
+                    }}>
+
                         <FormGroup>
                             <Label for="name"></Label>
-                            <Input                                 
+                            <Input
                                 type="text"
                                 name="name"
                                 id="name"
@@ -100,7 +109,7 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
                                 }}
                             />
                         </FormGroup>
-                        <FormGroup>
+                        {/* <FormGroup>
                             <Label for="description"></Label>
                             <Input
                                 type="text"
@@ -113,7 +122,7 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
                                     });
                                 }}
                             />
-                        </FormGroup>
+                        </FormGroup> */}
                         <FormGroup>
                             <Label for="totalPrice"></Label>
                             <Input
@@ -132,21 +141,21 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
                         <FormGroup>
                             <Row xs="2">
                                 <Col sm>
-                            <Label for="complete">Complete</Label>
-                            <Input
-                                type="checkbox"
-                                name="complete"
-                                id="complete"
-                                onChange={(e) => {
-                                    this.setState({
-                                        editComplete: e.target.checked,
-                                    });
-                                }}                                
-                            />
-                            </Col>
+                                    <Label for="complete">Complete</Label>
+                                    <Input
+                                        type="checkbox"
+                                        name="complete"
+                                        id="complete"
+                                        onChange={(e) => {
+                                            this.setState({
+                                                editComplete: e.target.checked,
+                                            });
+                                        }}
+                                    />
+                                </Col>
                             </Row>
                         </FormGroup>
-                        <Button onClick={this.updateBuild}>Submit</Button>
+                        {/* <Button onClick={this.updateBuild}>Submit</Button> */}
                         <Button type="submit">Update</Button>
                     </Form>
                 </ModalBody>

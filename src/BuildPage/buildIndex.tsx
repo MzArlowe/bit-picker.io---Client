@@ -5,6 +5,7 @@ import BuildUpdate from './updateBuild';
 import { Container, Button, Row, Col, Card, CardBody, CardTitle, CardText, ButtonGroup } from 'reactstrap';
 import APIURL from '../Helpers/environments';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 
 type BuildIndexProps = {
     sessionToken: string;
@@ -70,28 +71,36 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
         return this.state.build.map((build: Build, idx: number) => {
             return (
                 <div className="build-card">
-                        {/* <Row>
+                    {/* <Row>
                             <Col sm="3" md={{ size: 6, offset: 3 }}> */}
-                                <CardBody>
-                                    <div key={idx}>
-                                        <CardTitle>
-                                            <h3>{build.name}</h3></CardTitle>
-                                        <CardText>
-                                            <p>{build.description}</p>                                            
-                                            <p>{build.totalPrice}</p>
-                                            <p>{build.Complete}</p>
-                                        </CardText>
-                                        <ButtonGroup>
-                                            <Button onClick={() => this.updateBuild(build)}>Edit</Button>
-                                            <Button onClick={() => this.deleteBuild(build.id.toString())}>Delete</Button>
-                                            {/* <Button onClick={() => this.createBit(build)}>Create Bit</Button> */}
-                                        </ButtonGroup>
-                                    </div>
-                                </CardBody>
+                    <CardBody>
+                        <div key={idx}>
+                            <CardTitle>
+                                <h3>{build.name}</h3>
+                                <p>{build.description}</p>
+                                <p>{build.totalPrice}</p>
+                                <p>{build.Complete}</p>
+                            </CardTitle>
 
-                            {/* /* </Col>
+                            <CardText>
+
+                            </CardText>
+                            <ButtonGroup>
+                                <button className="btn-link">
+                                <Link to={`/bit/all/${build.id}`}>View Parts</Link>
+                                </button>
+                                <button className="btn-link">
+                                <Link to={`/bit/create/${build.id}`}>Add Parts</Link>
+                                </button>
+                                {/* <Button onClick={() => this.deleteBit(build.id.toString())}>Delete</Button> */}
+                                {/* <Button onClick={() => this.createBit(build)}>Create Bit</Button> */}
+                            </ButtonGroup>
+                        </div>
+                    </CardBody>
+
+                    {/* /* </Col>
                         </Row> */}
-                    
+
                 </div>
             )
         })
@@ -162,7 +171,7 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
                 this.setState({
                     editBuild: data.build.id
                 })
-                this.fetchBuild();    
+                this.fetchBuild();
             })
 
             .catch((err) => { console.log('Catch Error', err) })
@@ -194,23 +203,18 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
         return (
             <div>
                 <Container>
-                    {/* <Row xs="2"  >
-                        <Col> */}
-                            <CreateBuild
-                                sessionToken={this.props.sessionToken}
-                                setBuildId={this.props.setBuildId}
-                                createBuild={this.props.createBuild}
-                                setCreateBuild={this.props.setCreateBuild}
-                                fetchBuild={this.fetchBuild}
-                            />
-                        {/* </Col>
-                        <Col> */}
-                            <div className="build-card-container">
-                                <h2>Current Builds</h2>
-                                {this.buildMap()}
-                            </div>
-                        {/* </Col>
-                    </Row> */}
+                    <CreateBuild
+                        sessionToken={this.props.sessionToken}
+                        setBuildId={this.props.setBuildId}
+                        createBuild={this.props.createBuild}
+                        setCreateBuild={this.props.setCreateBuild}
+                        fetchBuild={this.fetchBuild}
+                    />
+
+                    <div className="build-card-container">
+                        <h2>Current Builds</h2>
+                        {this.buildMap()}
+                    </div>
                 </Container>
             </div>
         );

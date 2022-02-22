@@ -5,6 +5,7 @@ import GetBit from './getBit';
 import UpdateBit from './updateBit';
 import { Container, Button, Row, Col, Card, CardBody, CardTitle, CardText, ButtonGroup } from 'reactstrap';
 import APIURL from '../Helpers/environments';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 type BitIndexProps = {
@@ -15,9 +16,9 @@ type BitIndexProps = {
     setCreateBit: (createBit: string) => void;
     bitArray: Bit[];
     setBitArray: (bitArray: Bit[]) => void;
-    // updateBit: string;
-    // setUpdateBit: (updateBit: string) => void;
-    // fetch: () => void;
+    updateBit: string;
+    setUpdateBit: (updateBit: string) => void;
+    fetch: () => void;
 };
 
 type BitIndexState = {
@@ -84,9 +85,10 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
                                 <p>{build.price}</p>
                             </CardText>
                             <ButtonGroup>
-                                {/* <Button onClick={() => this.updateBuild(build)}>Edit</Button>
-                                            <Button onClick={() => this.deleteBuild(build.id.toString())}>Delete</Button> */}
-                                {/* <Button onClick={() => this.createBit(build)}>Create Bit</Button> */}
+                                {/* <Link to={`/build/${build.id}`}>Test</Link> */}
+                                {/* <Button onClick={() => this.updateBit(build)}>Edit Bit</Button>
+                                <Button onClick={() => this.deleteBit(build.toString())}>Delete</Button>
+                                <Button onClick={() => this.createBit(build)}>Add Component</Button> */}
                             </ButtonGroup>
                         </div>
                     </CardBody>
@@ -98,22 +100,22 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
             )
         })
     }
-    // editUpdateBit = (bit: Bit) => {
-    //     this.setState({
-    //         updateActive: true,
-    //     });
-    // }
-    // updateOn = () => {
-    //     this.setState({
-    //         updateActive: true,
-    //     });
-    // }
+    editUpdateBit = (bit: Bit) => {
+        this.setState({
+            updateActive: true,
+        });
+    }
+    updateOn = () => {
+        this.setState({
+            updateActive: true,
+        });
+    }
 
-    // updateOff = () => {
-    //     this.setState({
-    //         updateActive: false,
-    //     });
-    // }
+    updateOff = () => {
+        this.setState({
+            updateActive: false,
+        });
+    }
 
     updateBit = (event: React.FormEvent<HTMLFormElement>, bit: Bit) => {
         event.preventDefault();
@@ -164,69 +166,44 @@ class BitIndex extends React.Component<BitIndexProps, BitIndexState> {
                 console.log(data);
                 this.setState({
                     bit: [],
-            })
+                })
+            }
+
+            )
     }
 
-    )
+    render() {
+        console.log("BitIndex render");
+        console.log(this.state)
+        return (
+            <Container>
+                <Row>
+                    <Col md="6">
+                        <h1>Update</h1>
+                        {/* <UpdateBit
+                            updateBit={this.props.updateBit}
+                            setUpdateBit={this.props.setUpdateBit}
+                            updateActive={this.state.updateActive}
+                            updateOff={this.updateOff}
+                            updateOn={this.updateOn}
+                            updateBit={this.updateBit}
+                            bitArray={this.props.bitArray}
+                            setBitArray={this.props.setBitArray}
+                        /> */}
+                    </Col>
+                    <Button onClick={() => {
+                        this.props.sessionToken
+                    }}>Add a Bit</Button>
+                </Row>
+                <Row>
+                    <Col md="6">
+                        
+                    </Col>
+                </Row>
+            </Container>
+        );
     }
-
-    // render() {
-    //     console.log("BitIndex render");
-    //     console.log(this.state)
-        // return (
-        //     <Container>
-        //         <Row>
-        //             <Col md="6">
-        //                 <h1>Update</h1>
-        //                 {/* <CreateBit
-        //                     sessionToken={this.props.sessionToken}
-        //                     // fetchBit={this.props.fetch}
-        //                     setBitId={this.props.setBitId}
-        //                     createBit={this.props.createBit}
-        //                     setCreateBit={this.props.setCreateBit} /> */}
-
-        //                 {/* <GetBit
-        //                     sessionToken={this.props.sessionToken}
-        //                     bitId={this.props.bitId}
-        //                     setBitId={this.props.setBitId}
-        //                     fetchBit={this.props.fetch} />
-
-        //                 <UpdateBit
-        //                     sessionToken={this.props.sessionToken}
-        //                     updateBit={this.props.updateBit}
-        //                     setUpdateBit={this.props.setUpdateBit}
-        //                     fetchBit={this.props.fetch}
-        //                 /> */}
-        //             </Col>
-        //             <Button onClick={() => {
-        //                 this.props.sessionToken
-        //             }}>Add a Bit</Button>
-        //         </Row>
-        //         <Row>
-        //             <Col md="6">
-        //                 <ul>
-        //                     {/* {this.state.editBit.map(() => {
-        //                         return (
-        //                             <li key={bit.id}>
-        //                                 <h3>{bit.name}</h3>
-        //                                 <p>{bit.description}</p>
-        //                                 <p>{bit.url}</p>
-        //                                 <p>{bit.price}</p>
-        //                                 {/* <Button onClick={() => {
-        //                                     this.editUpdateBit(bit);
-        //                                 }}>Edit</Button>
-        //                                 <Button onClick={() => {
-        //                                     this.deleteBit(bit);
-        //                                 }}>Delete</Button> */}
-        //                             {/* </li>
-        //                         ) */}
-        //                     )
-        //                 </ul>
-        //             </Col>
-        //         </Row>
-        //     </Container>
-        // );
-    }
+}
 
 
 export default BitIndex;

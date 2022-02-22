@@ -5,19 +5,19 @@ import './App.css';
 import NavBar from "./Component/NavBar";
 import BuildIndex from "./BuildPage/BuildIndex";
 import UpdateBuild from "./BuildPage/updateBuild";
-import BitIndex from "./PartsPage/bitIndex";
+import ViewAllParts from "./PartsPage/ViewAllParts";
+import DeletePart from "./PartsPage/DeletePart";
+import CreatePart from "./PartsPage/CreatePart";
+import UpdateBit from "./PartsPage/updateBit";
 import Auth from './Component/Auth';
 import Footer from './Component/Footer';
 import Loading from './Component/Loading';
-// import Build from "./BuildPage/createBuild";
 import { Build } from "./BuildPage/BuildIndex";
 import Bit from "./PartsPage/bitIndex";
 import { Button, Container, Row, Col, Card, CardBody, CardTitle, CardText, ButtonGroup } from "reactstrap";
-import { Router, Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import APIURL from './Helpers/environments';
-import { idText } from "typescript";
-import { endianness } from "os";
 
 const App: React.FunctionComponent = () => {
   const [loadingGif, setLoadingGif] = useState(true)
@@ -28,12 +28,9 @@ const App: React.FunctionComponent = () => {
   const [bitId, setBitId] = useState<string>("");
   const [createBit, setCreateBit] = useState<string>("");
   const [updateBit, setUpdateBit] = useState<string>("");
-  // const [updateActive, setUpdateActive] = useState<boolean>(false);
   const [buildArray, setBuildArray] = useState<Build[]>([]);
-  const [bitArray, setBitArray] = useState<Bit[]>
+  const [bitArray, setBitArray] = useState<Bit[]>([]);
   
-  ([]);
-
   useEffect(() => {
     setTimeout(() => { setLoadingGif(false) }, 3000)
   }, []);
@@ -82,7 +79,7 @@ const App: React.FunctionComponent = () => {
 
   const fetchBuild = () => {
     console.log("fetch Builds", sessionToken);
-    fetch(`${APIURL}/build`, {
+    fetch(`${APIURL}/build/`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -193,33 +190,8 @@ const fetchBit = (buildId: string) => {
                       setBuildArray
                     }
                      />
-                } />}
-                {/* {sessionToken &&
-                  <Route path="/build/bit" element={
-                        <BitIndex
-                          sessionToken={
-                            sessionToken                       
-                          } createBit={
-                            createBit
-                          } setCreateBit={
-                            setCreateBit
-                          } bitId={
-                            bitId
-                          } setBitId={
-                            setBitId
-                          } updateBit={
-                            updateBit
-                          } setUpdateBit={
-                            setUpdateBit
-                          } 
-                          bitArray={
-                            bitArray
-                          } setBitArray={
-                            setBitArray
-                          }
-                           />
-                      } />} */}
-                <Route path="/build/update" element={
+                } />}                
+                <Route path="/build/update/:id" element={
                   <UpdateBuild
                     sessionToken={
                       sessionToken
@@ -227,9 +199,42 @@ const fetchBit = (buildId: string) => {
                       updateBuild
                     } fetchBuild={
                       fetchBuild
+                    } id={
+                      buildId
                     }
                   />
-                } />
+                } /> {sessionToken &&
+                  <Route path="/bit/all/:id" element={
+                        <ViewAllParts
+                          sessionToken={
+                            sessionToken                       
+                          } 
+                           />
+                      } />}
+                      {sessionToken &&
+                  <Route path="/bit/create/:id" element={
+                        <CreatePart
+                          sessionToken={
+                            sessionToken                 
+                          }
+                           />
+                      } />}
+                      {sessionToken &&
+                  <Route path="/bit/delete/:id" element={
+                        <DeletePart
+                          sessionToken={
+                            sessionToken                 
+                          }
+                           />
+                      } />}
+                      {sessionToken &&
+                  <Route path="/bit/update/:id" element={
+                        <UpdateBit
+                          sessionToken={
+                            sessionToken                 
+                          }
+                           />
+                      } />}
               </Routes>
               <Routes>
               {sessionToken &&
@@ -248,14 +253,15 @@ const fetchBit = (buildId: string) => {
                                   className="build-name"
                                   color="gray"
                                 >{build.name}</CardTitle>
-                                <CardText>{build.description}</CardText>
+                                <CardText>{build.totalPrice}</CardText>
+                                <CardText>{build.Complete}</CardText>
                                 <div className="build-card-buttons">
                                   <ButtonGroup>
                                   <Button
                                     size="md"
                                     color="primary"
                                     onClick={() => {
-                                      // navigate(`/build/bit/${bit.id}`); !!!//
+                                      navigate(`/bit/create/${build.id}`);
                                     }}
                                   >View Build
                                   </Button>
@@ -264,7 +270,6 @@ const fetchBit = (buildId: string) => {
                                     color="primary"
                                     onClick={() => {
                                       navigate(`/build/update/${build.id}`);
-
                                     }}
                                   >Update
                                   </Button>
