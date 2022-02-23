@@ -143,15 +143,17 @@ const fetchBit = (buildId: string) => {
               <Routes>
                 {sessionToken &&
                   <Route path="/" element={
-                    <div>
-                      <h2>
+                    <div className="home-page-top">
+                      <div className="home-page-top-text">
+                      <h1>
                         Welcome to bit-Picker!
-                      </h2>
+                      </h1>
                       <hr />
                       
-                      <p>Ever needed a place to organize and save the components of your PC build?</p>
-                      <p>Need recommendations for a new GPU or Processor?</p>
-                      <p>Need to find a new motherboard and case that will fit that NvIDIA 3090?</p>
+                      <p>Ever needed a place to organize and save the components of your PC build?</p>                      
+                      <p>Need to find a new motherboard and case that will fit that NVIDIA GeForce RTX 3080 Ti Founders Edition?</p>
+                      <p>How about a system that can work for you to organize your company builds for clients?</p>
+                      <p>bit-Picker is here to help!</p>
                       <br />
                       <p>
                         Create New Build Button to begin.
@@ -166,9 +168,12 @@ const fetchBit = (buildId: string) => {
                         >
                           Create New Build
                         </Button>
+                        </div>
                         <hr />
-                        <br />
                       </div>
+                        
+                        <br />
+                      
                     </div>
                   } />
                 }
@@ -219,14 +224,14 @@ const fetchBit = (buildId: string) => {
                           }
                            />
                       } />}
-                      {/* {sessionToken &&
+                      {sessionToken &&
                   <Route path="/bit/delete/:id" element={
                         <DeletePart
                           sessionToken={
                             sessionToken                 
                           }
                            />
-                      } />} */}
+                      } />}
                       {sessionToken &&
                   <Route path="/bit/update/:id" element={
                         <UpdateBit
@@ -241,7 +246,7 @@ const fetchBit = (buildId: string) => {
               <Route path="/" element={
                 <Container>
                   <div className="build-card-container">
-                        <h3>Current Builds</h3>
+                        <h1>Current Builds</h1>
                   <Row xs="3">
                     <Col sm="3" md={{ size: 6, offset: 3 }}
                     >
@@ -251,9 +256,9 @@ const fetchBit = (buildId: string) => {
                               <CardBody>
                                 <CardTitle
                                   className="build-name"
-                                  color="gray"
+                                  color="white"
                                 >{build.name}</CardTitle>
-                                <CardText>{build.totalPrice}</CardText>
+                                <CardText><h4>{build.totalPrice}</h4></CardText>
                                 <CardText>{build.Complete}</CardText>
                                 <div className="build-card-buttons">
                                   <ButtonGroup>

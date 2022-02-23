@@ -1,7 +1,7 @@
 import React from 'react';
 import UpdateBit from './updateBit';
 import CreateBit from './createBit';
-import reactstrap, { Button, ButtonGroup } from 'reactstrap';
+import { Button, ButtonGroup, Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import APIURL from '../Helpers/environments';
 import { Link } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -75,17 +75,29 @@ export default class ViewAllParts extends React.Component<IProps, IState> {
                 <div className="create-btn">
                     {/* // Button that maps the create part for current build// */}
                     <ButtonGroup>
-                        <Link to={""}>Add Part</Link>
-                        </ButtonGroup>`
+                        <button>
+                        <Link to={`/bit/create/${window.location.pathname.split("/")[3]}`}>
+                        Add Part</Link>
+                        </button>
+                        </ButtonGroup>
                             
                 </div>
                 {this.state.data.length > 0 && this.state.data.map((part: any) => {
                     return (
+                        <div className='card-container'>
+                        <Card>
+                            <CardBody>
+                                <div className='parts-card'>
                         <div key={part.id}>
-                            <h3>{part.name}</h3>
-                            <p>{part.description}</p>
-                            <p>{part.url}</p>
-                            <p>{part.price}</p>
+                            <CardTitle>
+                            <h2>{part.name}</h2>
+                            </CardTitle>
+                            <CardText>
+                            <h5>{part.description}</h5>
+                            <h5>{part.url}</h5>
+                            <h4>{part.price}</h4>
+                            </CardText>
+                            </div>
                             <ButtonGroup>
                                 <button className="btn-link">
                                     <Link to={`/bit/update/${part.id}`}>Update Part</Link>
@@ -95,10 +107,14 @@ export default class ViewAllParts extends React.Component<IProps, IState> {
                                     <Link to={`/bit/delete/${part.id}`}>Delete Part</Link>
                                 </button>
                                 <button type="submit">Reserve</button>
-                            </ButtonGroup>
+                            </ButtonGroup>                            
                         </div>
-
+                        </CardBody>
+                        </Card>
+                        
+                        </div>
                     )
+                    
                 })}
             </div>
         );
