@@ -219,14 +219,14 @@ const fetchBit = (buildId: string) => {
                           }
                            />
                       } />}
-                      {sessionToken &&
+                      {/* {sessionToken &&
                   <Route path="/bit/delete/:id" element={
                         <DeletePart
                           sessionToken={
                             sessionToken                 
                           }
                            />
-                      } />}
+                      } />} */}
                       {sessionToken &&
                   <Route path="/bit/update/:id" element={
                         <UpdateBit

@@ -33,7 +33,8 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
         };
     }
 
-    handleSubmit = () => {
+    handleSubmit = (e: any) => {
+        e.preventDefault()
         console.log("handleSubmit",
             this.state.editId,
             this.state.editName,
@@ -90,11 +91,7 @@ class BuildUpdate extends React.Component<UpdateBuildProps, UpdateBuildState> {
             <Modal isOpen={true}>
                 <ModalHeader>Update Build</ModalHeader>
                 <ModalBody>
-                    <Form onSubmit={(e) => {
-                        e.preventDefault()
-                        this.handleSubmit()
-                    }}>
-
+                    <Form onSubmit={this.handleSubmit}>
                         <FormGroup>
                             <Label for="name"></Label>
                             <Input

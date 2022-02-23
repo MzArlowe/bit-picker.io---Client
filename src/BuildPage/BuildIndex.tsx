@@ -70,7 +70,9 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
     buildMap = () => {
         return this.state.build.map((build: Build, idx: number) => {
             return (
-                <div className="build-card">
+                <div className="build-card" key={
+                    build.id
+                }>
                     <hr ></hr>
                     {/* <Row>
                             <Col sm="3" md={{ size: 6, offset: 3 }}> */}
