@@ -215,7 +215,7 @@ const fetchBit = (buildId: string) => {
                   <Route path="/bit/create/:id" element={
                         <CreatePart
                           sessionToken={
-                            sessionToken                 
+                            sessionToken
                           }
                            />
                       } />}
@@ -263,7 +263,7 @@ const fetchBit = (buildId: string) => {
                                     onClick={() => {
                                       navigate(`/bit/create/${build.id}`);
                                     }}
-                                  >View Build
+                                  >Add to Build
                                   </Button>
                                   <Button
                                     size="md"

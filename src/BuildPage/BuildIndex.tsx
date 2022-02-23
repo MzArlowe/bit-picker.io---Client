@@ -74,7 +74,7 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
                     build.id
                 }>
                     <hr ></hr>
-                    {/* <Row>
+  {/* <Row>
                             <Col sm="3" md={{ size: 6, offset: 3 }}> */}
                     <CardBody>
                         <div key={idx}>
@@ -92,11 +92,9 @@ class BuildIndex extends React.Component<BuildIndexProps, BuildIndexState> {
                                 <button className="btn-link">
                                 <Link to={`/bit/all/${build.id}`}>View Parts</Link>
                                 </button>
-                                <button className="btn-link">
+                                    <button className="btn-link">
                                 <Link to={`/bit/create/${build.id}`}>Add Parts</Link>
                                 </button>
-                                {/* <Button onClick={() => this.deleteBit(build.id.toString())}>Delete</Button> */}
-                                {/* <Button onClick={() => this.createBit(build)}>Create Bit</Button> */}
                             </ButtonGroup>
                         </div>
                     </CardBody>

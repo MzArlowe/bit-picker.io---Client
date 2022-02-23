@@ -1,6 +1,7 @@
 import React from 'react';
 import UpdateBit from './updateBit';
-import reactstrap, { Button } from 'reactstrap';
+import CreateBit from './createBit';
+import reactstrap, { Button, ButtonGroup } from 'reactstrap';
 import APIURL from '../Helpers/environments';
 import { Link } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -25,20 +26,20 @@ export default class ViewAllParts extends React.Component<IProps, IState> {
     getFetch = () => {
         const id = window.location.pathname.split("/")[3];
         fetch(`${APIURL}/parts/getall/${id}`, {
-        method: "GET",
-        headers: new Headers({
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${this.props.sessionToken}`,
-        }),
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log("data", data);
-            this.setState({
-                data: data.parts
-            });
-        }
-        );
+            method: "GET",
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${this.props.sessionToken}`,
+            }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("data", data);
+                this.setState({
+                    data: data.parts
+                });
+            }
+            );
     }
 
     componentDidMount(): void {
@@ -71,6 +72,13 @@ export default class ViewAllParts extends React.Component<IProps, IState> {
             <div>
                 <h1>View All Parts</h1>
                 <hr ></hr>
+                <div className="create-btn">
+                    {/* // Button that maps the create part for current build// */}
+                    <ButtonGroup>
+                        <Link to={""}>Add Part</Link>
+                        </ButtonGroup>`
+                            
+                </div>
                 {this.state.data.length > 0 && this.state.data.map((part: any) => {
                     return (
                         <div key={part.id}>
@@ -78,14 +86,16 @@ export default class ViewAllParts extends React.Component<IProps, IState> {
                             <p>{part.description}</p>
                             <p>{part.url}</p>
                             <p>{part.price}</p>
-                            <button className="btn-link">
-                                <Link to={`/bit/update/${part.id}`}>Update Part</Link>
-                            </button>
-                            <Button onClick={() => this.deleteBit(part.id)}>Delete</Button>
-                            <button className="btn-link">
-                                {/* <Link to={`/bit/delete/${part.id}`}>Delete Part</Link> */}
-                            </button>
-                            <button type="submit">Reserve</button>
+                            <ButtonGroup>
+                                <button className="btn-link">
+                                    <Link to={`/bit/update/${part.id}`}>Update Part</Link>
+                                </button>
+                                {/* <Button onClick={() => this.deleteBit(part.id)}>Delete</Button> */}
+                                <button className="btn-link">
+                                    <Link to={`/bit/delete/${part.id}`}>Delete Part</Link>
+                                </button>
+                                <button type="submit">Reserve</button>
+                            </ButtonGroup>
                         </div>
 
                     )
