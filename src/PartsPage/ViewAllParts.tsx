@@ -23,7 +23,7 @@ export default class ViewAllParts extends React.Component <IProps, IState> {
     
     componentDidMount(): void {
         const id = window.location.pathname.split("/")[3];
-        fetch(`http://localhost:3000/parts/getall/${id}`, {
+        fetch(`${APIURL}/parts/getall/${id}`, {
                 method: "GET",
                 headers: new Headers({
                     "Content-Type": "application/json",
