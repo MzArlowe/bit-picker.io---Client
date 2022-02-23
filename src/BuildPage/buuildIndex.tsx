@@ -1,6 +1,6 @@
 import React, { ErrorInfo } from 'react';
 import CreateBuild from './createBuild';
-import BuildUpdate from './updateBuild';
+// import BuildUpdate from './updateBuild';
 // import { useNavigate } from 'react-router-dom';
 import { Container, Button, Row, Col, Card, CardBody, CardTitle, CardText, ButtonGroup } from 'reactstrap';
 import APIURL from '../Helpers/environments';
